@@ -1,13 +1,13 @@
-import "../css/vista3.css";
+import "@/css/formularioIngreso.css";
 
 function FormularioIngreso() {
   return (
     <>
-      <section className="box3">
-        <p>Formulario ejemplo</p>
+      {/* <section className="box3">
+        <p>Contenedor ejemplo</p>
       </section>
       <br />
-      <br />
+      <br /> */}
       <section className="box">
         <form action="" id="ingresar-form">
           <label htmlFor="codigo">Ingresa el código del juego</label>
@@ -29,11 +29,11 @@ function FormularioIngreso() {
           <input type="submit" value="Ingresar" id="submit-btn" />
         </form>
       </section>
-      <br />
+      {/* <br />
       <br />
       <section className="box2">
         <p>Contenedor ejemplo</p>
-      </section>
+      </section> */}
     </>
   );
 }
