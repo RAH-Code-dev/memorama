@@ -6,7 +6,7 @@ const Loading = ( { title } ) => {
       <article>
         <h2>{title}</h2>
       </article>
-      <article class="loader"></article>
+      <article className="loader"></article>
     </section>
   );
 }
