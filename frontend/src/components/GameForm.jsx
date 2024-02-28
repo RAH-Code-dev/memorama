@@ -1,3 +1,5 @@
+import CardForm from "./CardForm";
+
 const GameForm = () => {
   return (
     <div>
@@ -6,6 +8,7 @@ const GameForm = () => {
         <input type="text" />
       </label>
       <button>Add Card</button>
+      <CardForm></CardForm>
     </div>
   );
 };
