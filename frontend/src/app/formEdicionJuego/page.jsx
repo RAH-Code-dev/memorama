@@ -1,5 +1,5 @@
 "use client";
-import "@/css/edicionJuego.css";
+import "@/styles/pages/edicionJuego.css";
 import { useState } from "react";
 
 export default function FormularioEdicionJuego() {

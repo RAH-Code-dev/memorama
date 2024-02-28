@@ -1,4 +1,4 @@
-import "@/css/formularioIngreso.css";
+import "@/styles/pages/formularioIngreso.css";
 
 function FormularioIngreso() {
   return (
