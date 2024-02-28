@@ -9,7 +9,7 @@
 }
 
 .loader {
-    background: conic-gradient( black, violet);
+    background: conic-gradient( #161b3d, #d90368);
     position: relative;
     border-radius: 50%;
     width: 100px;
@@ -24,7 +24,7 @@
     border-radius: 50%;
     width: 80px;
     height: 80px;
-    background-color: black;
+    background-color: #161b3d;
     top: 10%;
     left: 10%;
 }
@@ -35,7 +35,7 @@
     border-radius: 50%;
     width: 10px;
     height: 10px;
-    background-color: violet;
+    background-color: #d90368;
     right: 45%;
 }
 
