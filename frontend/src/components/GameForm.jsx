@@ -12,12 +12,23 @@ const GameForm = () => {
   };
 
   const handleAddCard = () => {
-    setCards([...cards, { question: "", answer: "" }]);
+    const maxCards = 16;
+    if (cards.length < maxCards) {
+      setCards([...cards, { question: "", answer: "" }]);
+    } else {
+      alert("The maximum card limit has been reached!");
+    }
   };
 
   const handleCardChange = (index, field, value) => {
     const updatedCards = [...cards];
     updatedCards[index][field] = value;
+    setCards(updatedCards);
+  };
+
+  const handleDeleteCard = (index) => {
+    const updatedCards = [...cards];
+    updatedCards.splice(index, 1);
     setCards(updatedCards);
   };
 
@@ -34,6 +45,7 @@ const GameForm = () => {
           index={index}
           card={card}
           onCardChange={handleCardChange}
+          onDeleteCard={handleDeleteCard}
         />
       ))}
       <button onClick={() => exportGameData(gameName, cards)}>
