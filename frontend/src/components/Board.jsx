@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import '../styles/components/Board.css'
 import Card from './Card'
 
-function App() {
+export default function BoardComponent() {
   const [cards, setCards] = useState([])
   const [selectedCards, setSelectedCards] = useState([])
   const [score, setScore] = useState(0);
@@ -107,5 +107,3 @@ const checkMacht = () =>{
    </div>
   )
 }
-
-export default App
