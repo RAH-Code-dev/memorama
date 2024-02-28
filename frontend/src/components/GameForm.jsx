@@ -3,10 +3,12 @@
 import React, { useState } from "react";
 import CardForm from "./CardForm";
 import styles from "@/styles/components/GameForm.module.css";
+import { useRouter } from "next/navigation";
 
 const GameForm = () => {
   const [gameName, setGameName] = useState("");
   const [cards, setCards] = useState([]);
+  const router = useRouter();
 
   const handleGameNameChange = (e) => {
     setGameName(e.target.value);
@@ -31,6 +33,12 @@ const GameForm = () => {
     const updatedCards = [...cards];
     updatedCards.splice(index, 1);
     setCards(updatedCards);
+  };
+
+  const exportGameData = (gameName, cards) => {
+    console.log("Exporting Game Data:", gameName, cards);
+
+    router.push("/nuevo");
   };
 
   return (
@@ -64,10 +72,6 @@ const GameForm = () => {
       </button>
     </div>
   );
-};
-
-const exportGameData = (gameName, cards) => {
-  console.log("Exporting Game Data:", gameName, cards);
 };
 
 export default GameForm;

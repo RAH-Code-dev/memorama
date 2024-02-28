@@ -22,7 +22,7 @@ function FormularioIngreso() {
             placeholder="Nombre de usuario"
           />
 
-          <Link href={"/board"} id={styles.submitBtn}>
+          <Link href={"/tablero"} id={styles.submitBtn}>
             Ingresar
           </Link>
         </form>

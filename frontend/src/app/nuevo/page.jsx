@@ -1,10 +1,11 @@
 "use client";
 import "@/styles/pages/formularioIngreso.css";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function FormularioEdicionJuego() {
-    // const [numeroCategorias, setNumeroCategorias] = useState(0);
-
+  // const [numeroCategorias, setNumeroCategorias] = useState(0);
+  const router = useRouter();
   return (
     <section className="box">
       <form action="" id="ingresar-form">
@@ -24,7 +25,12 @@ export default function FormularioEdicionJuego() {
           placeholder="Nombre del juego"
         />
 
-        <input type="submit" value="Ingresar" id="submit-btn" />
+        <input
+          type="submit"
+          value="Ingresar"
+          id="submit-btn"
+          onClick={() => router.push("/stats")}
+        />
       </form>
     </section>
   );
