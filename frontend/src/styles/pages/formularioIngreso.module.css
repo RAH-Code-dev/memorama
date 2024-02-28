@@ -1,0 +1,54 @@
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  background-color: white;
+  padding: 1.8rem 1rem;
+  border-radius: 20px;
+  border: #d90368 solid 2px;
+  color: black;
+}
+
+#ingresarForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#ingresarForm .input {
+  font-size: 1.1rem;
+  padding: 0 0.1rem;
+  padding-bottom: 0.1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border: none;
+  outline: none;
+  border-bottom: #d90368 solid 2px;
+}
+
+#ingresarForm label {
+  font-size: 1.1rem;
+}
+
+#submitBtn {
+  margin-top: 5vh;
+  padding: 0.4rem 0.6rem;
+  border-radius: 16px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  background-color: #d90368;
+  border: #d90368 solid 2px;
+  color: white;
+  text-decoration: none;
+}
+
+#submitBtn:hover {
+  transform: scale(1.05);
+  background-color: white;
+  color: black;
+}

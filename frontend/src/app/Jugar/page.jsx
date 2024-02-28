@@ -1,13 +1,14 @@
-import "@/styles/pages/formularioIngreso.css";
+import styles from "@/styles/pages/formularioIngreso.module.css";
+import Link from "next/link";
 
 function FormularioIngreso() {
   return (
-    <>
-      <section className="box">
-        <form action="" id="ingresar-form">
+    <div className={styles.container}>
+      <section className={styles.box}>
+        <form action="" id={styles.ingresarForm}>
           <label htmlFor="codigo">Ingresa el código del juego</label>
           <input
-            className="input"
+            className={styles.input}
             type="text"
             name="codigo"
             placeholder="Código del juego"
@@ -15,16 +16,18 @@ function FormularioIngreso() {
 
           <label htmlFor="nombre">Ingresa tu nombre de usuario</label>
           <input
-            className="input"
+            className={styles.input}
             type="text"
             name="nombre"
             placeholder="Nombre de usuario"
           />
 
-          <input type="submit" value="Ingresar" id="submit-btn" />
+          <Link href={"/board"} id={styles.submitBtn}>
+            Ingresar
+          </Link>
         </form>
       </section>
-    </>
+    </div>
   );
 }
 
