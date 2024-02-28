@@ -13,19 +13,21 @@ const CardForm = ({ index, card, onCardChange, onDeleteCard }) => {
   return (
     <div className={styles.cardContainer}>
       <label className={styles.labelInput}>
-        Question:
         <input
           type="text"
           value={card.question}
           onChange={(e) => onCardChange(index, "question", e.target.value)}
+          className={styles.input_text}
+          placeholder="Question"
         />
       </label>
       <label className={styles.labelInput}>
-        Answer:
         <input
           type="text"
           value={card.answer}
           onChange={(e) => onCardChange(index, "answer", e.target.value)}
+          className={styles.input_text}
+          placeholder="Answer"
         />
       </label>
       <button

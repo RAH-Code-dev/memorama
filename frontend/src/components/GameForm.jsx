@@ -36,8 +36,13 @@ const GameForm = () => {
   return (
     <div className={styles.formContainer}>
       <label className={styles.labelInput}>
-        Game Name:
-        <input type="text" value={gameName} onChange={handleGameNameChange} />
+        <input
+          className={styles.input_text}
+          type="text"
+          value={gameName}
+          onChange={handleGameNameChange}
+          placeholder="Game Name"
+        />
       </label>
       <button className={styles.button} onClick={handleAddCard}>
         Add Card
