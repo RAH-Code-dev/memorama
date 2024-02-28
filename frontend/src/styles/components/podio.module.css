@@ -9,30 +9,23 @@
     justify-content: flex-start;
 }
 
-.podio-1 {
+.podio1 {
     height: 85%;
     background-color: cadetblue;
     animation: grow1 1.25s ease-in-out;
 }
 
-.podio-2 {
+.podio2 {
     height: 75%;
     background-color: #7f7eff;
     animation: grow2 1.25s ease-in-out;
 }
 
-.podio-3 {
+.podio3 {
     height: 65%;
     background-color: #cd7f32;
     animation: grow3 1.25s ease-in-out;
 }
-
-/** This was to expand the podium in mobile view
-@media screen and (max-width: 768px){
-    .podio {
-        flex: 1;
-    }
-}*/
 
 @keyframes grow1 {
     0% {
