@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import CardForm from "./CardForm";
+import styles from "@/styles/components/GameForm.module.css";
 
 const GameForm = () => {
   const [gameName, setGameName] = useState("");
@@ -33,12 +34,14 @@ const GameForm = () => {
   };
 
   return (
-    <div>
-      <label>
-        Game Name:{" "}
+    <div className={styles.formContainer}>
+      <label className={styles.labelInput}>
+        Game Name:
         <input type="text" value={gameName} onChange={handleGameNameChange} />
       </label>
-      <button onClick={handleAddCard}>Add Card</button>
+      <button className={styles.button} onClick={handleAddCard}>
+        Add Card
+      </button>
       {cards.map((card, index) => (
         <CardForm
           key={index}
@@ -48,7 +51,10 @@ const GameForm = () => {
           onDeleteCard={handleDeleteCard}
         />
       ))}
-      <button onClick={() => exportGameData(gameName, cards)}>
+      <button
+        className={`${styles.button} ${styles.button_export}`}
+        onClick={() => exportGameData(gameName, cards)}
+      >
         Export Data
       </button>
     </div>

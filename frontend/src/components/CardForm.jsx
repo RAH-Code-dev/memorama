@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "@/styles/components/CardForm.module.css";
 
 const CardForm = ({ index, card, onCardChange, onDeleteCard }) => {
   const handleQuestionChange = (e) => {
@@ -10,20 +11,29 @@ const CardForm = ({ index, card, onCardChange, onDeleteCard }) => {
   };
 
   return (
-    <div>
-      <label>
-        Question:{" "}
+    <div className={styles.cardContainer}>
+      <label className={styles.labelInput}>
+        Question:
         <input
           type="text"
           value={card.question}
-          onChange={handleQuestionChange}
+          onChange={(e) => onCardChange(index, "question", e.target.value)}
         />
       </label>
-      <label>
-        Answer:{" "}
-        <input type="text" value={card.answer} onChange={handleAnswerChange} />
+      <label className={styles.labelInput}>
+        Answer:
+        <input
+          type="text"
+          value={card.answer}
+          onChange={(e) => onCardChange(index, "answer", e.target.value)}
+        />
       </label>
-      <button onClick={() => onDeleteCard(index)}>Delete Card</button>
+      <button
+        className={styles.deleteButton}
+        onClick={() => onDeleteCard(index)}
+      >
+        Delete Card
+      </button>
     </div>
   );
 };
