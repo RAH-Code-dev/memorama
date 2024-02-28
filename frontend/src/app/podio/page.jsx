@@ -1,6 +1,7 @@
 import React from 'react'
 import Podio from '@/components/Podio'
 import '@/styles/pages/podioPage.css'
+import Link from 'next/link'
 
 export default function Page() {
   return (
@@ -27,7 +28,7 @@ export default function Page() {
 
       </section>
 
-      <a className='cta-podium' href="">Volver al registro</a>
+      <Link className='cta-podium' href="/formIngreso">Volver al registro</Link>
 
     </section>
   )
