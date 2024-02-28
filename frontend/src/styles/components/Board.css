@@ -1,0 +1,49 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    background-color: black;
+    padding: 1rem;
+    perspective: 700px;
+}
+.card{
+    background-color: white;
+    height: 130px;
+    width: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: .3seg ease;
+}
+.animalName{
+    color: black;
+    object-fit: cover;
+}
+
+
+.back{
+    background:  url("https://static.vecteezy.com/system/resources/thumbnails/007/126/739/small/question-mark-icon-free-vector.jpg") center/cover ;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    backface-visibility: hidden;
+    cursor: pointer;
+}
+.card.open{
+    transform: rotateY(180deg);
+}
