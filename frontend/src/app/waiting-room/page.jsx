@@ -1,7 +1,7 @@
 import Loading from "@/components/loading";
 import "@/styles/pages/waiting-room.css";
 
-const Page = () => {
+export default Page = () => {
   return (
     <section className="loadingPage">
       <Loading 
@@ -10,5 +10,3 @@ const Page = () => {
     </section>
   );
 }
- 
-export default Page;
