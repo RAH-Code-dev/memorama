@@ -34,7 +34,7 @@ class Cartas(models.Model):
 
 class CartasEnPartida(models.Model):
     subpartidaID = models.AutoField(primary_key=True)
-    CartaID = models.ForeignKey("Cartas", on_delete=models.CASCADE)
+    cartaID = models.ForeignKey("Cartas", on_delete=models.CASCADE)
     estado = models.CharField(max_length=50)
 
 
