@@ -50,6 +50,7 @@ class SubpartidasSerializer(serializers.ModelSerializer):
             'subpartidaID',
         )
 
+
 class CartasSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cartas
@@ -60,6 +61,7 @@ class CartasSerializer(serializers.ModelSerializer):
             'cartaID',
         )
 
+
 class CartasEnPartidaSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartasEnPartida
@@ -67,4 +69,14 @@ class CartasEnPartidaSerializer(serializers.ModelSerializer):
             'subpartidaID',
             'cartaID',
             'estado',
+        )
+
+
+class VisivilidadSubsalaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VisibilidadSubsala
+        fields = (
+            'subpartidaID',
+            'alumnoID',
+            'visto',
         )
