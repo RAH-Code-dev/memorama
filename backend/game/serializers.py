@@ -72,11 +72,11 @@ class CartasEnPartidaSerializer(serializers.ModelSerializer):
         )
 
 
-class VisivilidadSubsalaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = VisibilidadSubsala
-        fields = (
-            'subpartidaID',
-            'alumnoID',
-            'visto',
-        )
+# class VisivilidadSubsalaSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = VisibilidadSubsala
+#         fields = (
+#             'subpartidaID',
+#             'alumnoID',
+#             'visto',
+#         )

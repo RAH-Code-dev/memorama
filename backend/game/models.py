@@ -40,5 +40,5 @@ class CartasEnPartida(models.Model):
 
 class VisibilidadSubsala(models.Model):
     alumnoID = models.AutoField(primary_key=True)
-    subpartidaID = models.ForeignKey("Subpartida", on_delete=models.CASCADE)
+    subpartidaID = models.ForeignKey("Subpartidas", on_delete=models.CASCADE)
     visto = models.BooleanField()
