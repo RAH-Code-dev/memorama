@@ -17,12 +17,12 @@ class AlumnosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Alumnos
         fields = (
+            'alumnoID',
             'nombre',
             'puntaje',
-            'subpartdaID',
         )
         read_only = (
-            'alumnoID',
+            'subpartdaID',
         )
 
 
@@ -30,11 +30,9 @@ class PartidasSerializer(serializers.ModelSerializer):
     class Meta:
         model = Partidas
         fields = (
+            'partidaID',
             'profesorID',
             'estado',
-        )
-        read_only = (
-            'partidaID',
         )
 
 
