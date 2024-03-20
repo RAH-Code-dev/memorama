@@ -16,13 +16,15 @@ class ProfesoresViewSet(viewsets.ModelViewSet):
     serializer_class = ProfesoresSerializer
 
 
-# ERROR AL HACER POST X EL CAMPO subpartidaID, no debe ser nulo pero no deja ponerlo como input en el POST
+# Se necesita crear la 1er subsala antes de q el primer jugador entre para poder asignarlo a ella
+# y tambien con las siguientes subsalas, porque no se puede crear un usuario con el campo subpartidaID en NULL
 class AlumnosViewSet(viewsets.ModelViewSet):
     queryset = Alumnos.objects.all()
     serializer_class = AlumnosSerializer
     
 
-# falta debugguear este endpoint, no esta en las urls tampoco
+# endpoint para editar el campo de puntaje en los alumnos
+# regresa todos los campos del alumno editado
 @api_view(['PUT'])
 def updateScore(request, pk):
     try:
@@ -30,25 +32,25 @@ def updateScore(request, pk):
     except Alumnos.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-
-    serializer = AlumnosSerializer(alumno, data=request.data)
+    print(request.data)
+    serializer = AlumnosSerializer(alumno, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-
 class PartidasViewSet(viewsets.ModelViewSet):
-    queryset = Partidas
+    queryset = Partidas.objects.all()
     serializer_class = PartidasSerializer
 
 
+# El campo turnoAlumnoID ser nulo para permitir crear subpartidas sin alumnos
 class SubpartidasViewSet(viewsets.ModelViewSet):
-    queryset = Subpartidas
+    queryset = Subpartidas.objects.all()
     serializer_class = SubpartidasSerializer
 
 
 class CartasViewSet(viewsets.ModelViewSet):
-    queryset = Cartas
+    queryset = Cartas.objects.all()
     serializer_class = CartasSerializer

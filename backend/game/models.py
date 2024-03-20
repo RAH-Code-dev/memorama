@@ -15,14 +15,14 @@ class Alumnos(models.Model):
 
 class Partidas(models.Model):
     partidaID = models.AutoField(primary_key=True)
-    profesorID = models.ForeignKey("Profesores", on_delete=models.CASCADE)
+    profesorID = models.OneToOneField("Profesores", on_delete=models.CASCADE)
     estado = models.TextField(max_length=100)
 
 
 class Subpartidas(models.Model):
     subpartidaID = models.AutoField(primary_key=True)
-    turnoAlumnoID = models.ForeignKey(
-        "Alumnos", on_delete=models.SET_NULL, null=True)
+    partidaID = models.ForeignKey("Partidas", on_delete=models.CASCADE, default=1)
+    turnoAlumnoID = models.ForeignKey("Alumnos", on_delete=models.SET_NULL, null=True)
     cartaID = models.ForeignKey("Cartas", on_delete=models.CASCADE)
     estado = models.CharField(max_length=50)
 

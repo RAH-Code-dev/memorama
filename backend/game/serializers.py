@@ -20,9 +20,7 @@ class AlumnosSerializer(serializers.ModelSerializer):
             'alumnoID',
             'nombre',
             'puntaje',
-        )
-        read_only = (
-            'subpartdaID',
+            'subpartidaID',
         )
 
 
@@ -43,8 +41,6 @@ class SubpartidasSerializer(serializers.ModelSerializer):
             'turnoAlumnoID',
             'cartaID',
             'estado',
-        )
-        read_only = (
             'subpartidaID',
         )
 
@@ -68,13 +64,3 @@ class CartasEnPartidaSerializer(serializers.ModelSerializer):
             'cartaID',
             'estado',
         )
-
-
-# class VisivilidadSubsalaSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = VisibilidadSubsala
-#         fields = (
-#             'subpartidaID',
-#             'alumnoID',
-#             'visto',
-#         )
