@@ -1,56 +1,74 @@
+from django.core.exceptions import MultipleObjectsReturned
 from rest_framework import viewsets, status
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Profesores, Alumnos, Partidas, Subpartidas, Cartas
-from .serializers import ProfesoresSerializer, AlumnosSerializer, PartidasSerializer, SubpartidasSerializer, CartasSerializer
+from .models import Profesores, Alumnos
+from .serializers import ProfesoresSerializer, AlumnosSerializer, PartidasSerializer
+from .serializers import PuntajeSerializer
 
 
-# Tiene permitido POST, GET, DELETE y PATCH
-# Recibe un nombre por POST y lo guarda en la BDD
-# con una peticion GET regresa todos los nombres de los profesores guardados
-# si le pasas el id como parametro por la url en una peticion GET te regresa el nombre
-# lo mismo para PATCH y DELETE
-# ej. api/profesores/2/
 class ProfesoresViewSet(viewsets.ModelViewSet):
     queryset = Profesores.objects.all()
     serializer_class = ProfesoresSerializer
-
-
-# Se necesita crear la 1er subsala antes de q el primer jugador entre para poder asignarlo a ella
-# y tambien con las siguientes subsalas, porque no se puede crear un usuario con el campo subpartidaID en NULL
-class AlumnosViewSet(viewsets.ModelViewSet):
-    queryset = Alumnos.objects.all()
-    serializer_class = AlumnosSerializer
     
 
-# endpoint para editar el campo de puntaje en los alumnos
-# regresa todos los campos del alumno editado
-@api_view(['PUT'])
-def updateScore(request, pk):
+def CartasSave(cartasJSON):
+    pass
+
+@api_view(['POST'])
+def crearPartida(request):
     try:
-        alumno = Alumnos.objects.get(pk=pk)
+        nombreProfesor = request.data["nombre profesor"]
+        nombreJuego = request.data["nombre Juego"]
+        cartas = request.data["cartas"]
+    except KeyError:
+        return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+    
+    profesorSerializer = ProfesoresSerializer(data={"nombre" : nombreProfesor})
+    if not profesorSerializer.is_valid():
+        return Response(profesorSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    profesor = profesorSerializer.save()
+
+    partidaSerializer = PartidasSerializer(data={
+        "nombre" : nombreJuego,
+        "profesorID" : profesor.profesorID,
+        "estado" : "Iniciando",
+        })
+    if not partidaSerializer.is_valid():
+        profesor.delete()
+        return Response(partidaSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    partida = partidaSerializer.save()
+
+    CartasSave(cartas)
+
+    return Response({
+        "profesorID": profesor.profesorID,
+        "partidaID": partida.partidaID,
+        })
+
+
+@api_view(['PUT'])
+def updateScore(request, id):
+    try:
+        alumno = Alumnos.objects.get(pk=id)
     except Alumnos.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    print(request.data)
-    serializer = AlumnosSerializer(alumno, data=request.data, partial=True)
+    serializer = PuntajeSerializer(alumno, data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
+        return Response({'puntaje' : serializer.validated_data['puntaje']})
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def getAlumnosSubpartida(request, id):
+    try:
+        alumnos = Alumnos.objects.filter(subpartidaID=id)
+    except Alumnos.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
     
-
-class PartidasViewSet(viewsets.ModelViewSet):
-    queryset = Partidas.objects.all()
-    serializer_class = PartidasSerializer
-
-
-# El campo turnoAlumnoID ser nulo para permitir crear subpartidas sin alumnos
-class SubpartidasViewSet(viewsets.ModelViewSet):
-    queryset = Subpartidas.objects.all()
-    serializer_class = SubpartidasSerializer
-
-
-class CartasViewSet(viewsets.ModelViewSet):
-    queryset = Cartas.objects.all()
-    serializer_class = CartasSerializer
+    serializer = AlumnosSerializer(alumnos, many=True)
+    return Response(serializer.data)
