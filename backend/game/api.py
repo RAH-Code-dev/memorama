@@ -3,7 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Profesores, Alumnos
-from .serializers import ProfesoresSerializer, AlumnosSerializer, PartidasSerializer
+from .serializers import ProfesoresSerializer, AlumnosSerializer, PartidasSerializer, CartasSerializer
 from .serializers import PuntajeSerializer
 
 
@@ -12,8 +12,27 @@ class ProfesoresViewSet(viewsets.ModelViewSet):
     serializer_class = ProfesoresSerializer
     
 
-def CartasSave(cartasJSON):
-    pass
+def JsonCardsConverter(cartasJSON):
+    for cardNum in cartasJSON:
+        try:
+            serializerQuestionCard = CartasSerializer(data={
+                "contenido" : cartasJSON[cardNum]['question'],
+                "cartaPar" : cardNum
+                })
+            serializerAnswerCard = CartasSerializer(data={
+                "contenido" : cartasJSON[cardNum]['answer'],
+                "cartaPar" : cardNum
+                })
+        except KeyError:
+            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+        
+        if not serializerQuestionCard.is_valid():
+            return Response(serializerQuestionCard.errors, status=status.HTTP_400_BAD_REQUEST)
+        if not serializerAnswerCard.is_valid():
+            return Response(serializerAnswerCard.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializerQuestionCard.save()
+        serializerAnswerCard.save()
+
 
 @api_view(['POST'])
 def crearPartida(request):
@@ -41,7 +60,8 @@ def crearPartida(request):
     
     partida = partidaSerializer.save()
 
-    CartasSave(cartas)
+    res = JsonCardsConverter(cartas)
+    if res is not None: return res
 
     return Response({
         "profesorID": profesor.profesorID,

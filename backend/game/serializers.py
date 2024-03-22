@@ -40,3 +40,12 @@ class PartidasSerializer(serializers.ModelSerializer):
             'profesorID',
             'estado',
         )
+
+
+class CartasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cartas
+        fields = (
+            'contenido',
+            'cartaPar',
+        )

@@ -31,6 +31,7 @@ class Subpartidas(models.Model):
 class Cartas(models.Model):
     cartaID = models.AutoField(primary_key=True)
     contenido = models.TextField(max_length=500)
+    cartaPar = models.IntegerField(blank=False, null=False)
 
 
 class CartasEnPartida(models.Model):
