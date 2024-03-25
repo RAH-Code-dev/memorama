@@ -16,7 +16,7 @@ sequenceDiagram
     next ->> django: POST unirse (nombre alumnos, id partida)
     activate django
 
-    Note left of django: Create SubPartida (if not created or full)
+    Note left of django: Create SubPartida and CartasEnPartida (if SubPartida not created or full)
     Note left of django: Create Alumnos
 
     django -->> next: Return (id subpartida, id alumno)

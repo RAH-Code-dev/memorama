@@ -17,7 +17,6 @@ class AlumnosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Alumnos
         fields = (
-            'alumnoID',
             'nombre',
             'puntaje',
             'subpartidaID',
@@ -48,15 +47,24 @@ class CartasSerializer(serializers.ModelSerializer):
         fields = (
             'contenido',
             'cartaPar',
+            'partidaID',
         )
 
-class subPartidaSerializer(serializers.ModelSerializer):
+class SubPartidaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subpartidas
         fields = (
             'partidaID',
             'turnoAlumnoID',
-            'cartaID',
             'estado',
             'numeroJugadores',
+        )
+
+class CartasEnSubPartida(serializers.ModelSerializer):
+    class Meta:
+        model = CartasEnSubPartida
+        fields = (
+            'subpartidaID',
+            'cartaID',
+            'estado',
         )

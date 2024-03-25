@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Profesores, Alumnos, Subpartidas, Partidas
 from .serializers import ProfesoresSerializer, AlumnosSerializer, PartidasSerializer, CartasSerializer
-from .serializers import PuntajeSerializer, subPartidaSerializer
+from .serializers import PuntajeSerializer, SubPartidaSerializer
 
 
 class ProfesoresViewSet(viewsets.ModelViewSet):
@@ -12,24 +12,28 @@ class ProfesoresViewSet(viewsets.ModelViewSet):
     serializer_class = ProfesoresSerializer
     
 
-def JsonCardsConverter(cartasJSON):
+def JsonCardsConverter(cartasJSON, partidaID):
     for cardNum in cartasJSON:
         try:
             serializerQuestionCard = CartasSerializer(data={
                 "contenido" : cartasJSON[cardNum]['question'],
-                "cartaPar" : cardNum
+                "cartaPar" : cardNum,
+                "partidaID" : partidaID,
                 })
             serializerAnswerCard = CartasSerializer(data={
                 "contenido" : cartasJSON[cardNum]['answer'],
-                "cartaPar" : cardNum
+                "cartaPar" : cardNum,
+                "partidaID": partidaID,
                 })
-        except KeyError:
-            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+        except KeyError as e:
+            return Response({"KeyError": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
         if not serializerQuestionCard.is_valid():
             return Response(serializerQuestionCard.errors, status=status.HTTP_400_BAD_REQUEST)
+        
         if not serializerAnswerCard.is_valid():
             return Response(serializerAnswerCard.errors, status=status.HTTP_400_BAD_REQUEST)
+        
         serializerQuestionCard.save()
         serializerAnswerCard.save()
 
@@ -40,8 +44,8 @@ def crearPartida(request):
         nombreProfesor = request.data["nombre profesor"]
         nombreJuego = request.data["nombre juego"]
         cartas = request.data["cartas"]
-    except KeyError:
-        return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+    except KeyError as e:
+        return Response({"KeyError": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
     profesorSerializer = ProfesoresSerializer(data={"nombre" : nombreProfesor})
     if not profesorSerializer.is_valid():
@@ -60,7 +64,7 @@ def crearPartida(request):
     
     partida = partidaSerializer.save()
 
-    res = JsonCardsConverter(cartas)
+    res = JsonCardsConverter(cartas, partida.partidaID)
     if res is not None: return res
 
     return Response({
@@ -70,35 +74,77 @@ def crearPartida(request):
 
 
 def createSubGame(partidaID, numeroJugadores):
-    partida = Partidas.objects.get(pk=partidaID)
-    subPartidaSerializer(data={
+    subPartida = SubPartidaSerializer(data={
         'partidaID': partidaID,
-        # AQUI CREO Q SE DEBE CAMBIAR LOS MODELS DE LAS CARTAS
-        'cartaID' : partida.cartaID,
         'estado' : "iniciando",
         "numeroJugadores": numeroJugadores
     })
-    pass
 
+    if subPartida.is_valid():
+        subPartida.save()
+        return subPartida.validated_data['subpartidaID']
 
-# FALTA Q SIRVA LA FUNCION createSubGame()
+    return Response(subPartida.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def createAlumno(nombre, subPartidaID):
+    alumno = AlumnosSerializer(data={
+        'nombre' : nombre,
+        'puntaje' : 0,
+        'subpartidaID': subPartidaID,
+    })
+
+    if alumno.is_valid():
+        alumno = alumno.save()
+        return alumno.alumnoID
+
+    return Response(alumno.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# EL ENDPOINT FUNCIONA PARA GUARDAR DATOS EN LA DB, PERO TIENE UN ERROR
+# AL CREAR UNA SUBPARTIDA REGRESA UN KEY ERROR EN LUGAR DE LO QUE DEBERIA REGRESAR
 @api_view(['POST'])
 def unirse(request):
     if not Subpartidas.objects.last():
         try:
-            createSubGame(request.data['partidaID'], 1)
-        except KeyError:
-            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+            createSubGame(request.data['partidaID'], 0)
+        except KeyError as e:
+            return Response({"KeyError": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
     lastSubgame = Subpartidas.objects.last()
-    print(lastSubgame)
+    try:
+        subGameID = lastSubgame.subpartidaID
+    except AttributeError:
+        return Response({"Error": "No existe una partida con ese ID"}, status=status.HTTP_400_BAD_REQUEST)
+
     if lastSubgame.numeroJugadores >= 4:
         try:
-            createSubGame(request.data['partidaID'], lastSubgame.numeroJugadores+1)
-        except KeyError:
-            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+            subGameID = createSubGame(request.data['partidaID'], 0)
+        except KeyError as e:
+            return Response({"KeyError here": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
-    return Response({"prueba": lastSubgame})
+        if not isinstance(subGameID, int):
+            return subGameID
+    
+    try:
+        alumnoID = createAlumno(request.data['nombre alumno'], subGameID)
+    except KeyError as e:
+        return Response({"KeyError": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if not isinstance(alumnoID, int):
+        return alumnoID
+    
+    lastSubgameSerializer = SubPartidaSerializer(lastSubgame, data={
+        'numeroJugadores': lastSubgame.numeroJugadores+1,
+        'partidaID' : lastSubgame.partidaID.pk,
+        'estado' : lastSubgame.estado,
+    })
+    if not lastSubgameSerializer.is_valid():
+        return Response(lastSubgameSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    subGameID = lastSubgameSerializer.save()
+    
+    return Response({
+        "subpartidaID": subGameID.pk,
+        "alumnoID": alumnoID,
+    })
 
 
 # FALTAN HACER TESTS, DEBERIA FUNCIONAR PERO NO LO HE PROBADO
