@@ -73,7 +73,7 @@ def createSubGame(partidaID, numeroJugadores):
     partida = Partidas.objects.get(pk=partidaID)
     subPartidaSerializer(data={
         'partidaID': partidaID,
-        # AQUI NO SE Q DEBE IR, PERO EN LA BDD LA TABLA PARTIDA NO TIENE CAMPO "cartaID"
+        # AQUI CREO Q SE DEBE CAMBIAR LOS MODELS DE LAS CARTAS
         'cartaID' : partida.cartaID,
         'estado' : "iniciando",
         "numeroJugadores": numeroJugadores
