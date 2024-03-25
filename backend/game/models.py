@@ -26,6 +26,7 @@ class Subpartidas(models.Model):
     turnoAlumnoID = models.ForeignKey("Alumnos", on_delete=models.SET_NULL, null=True)
     cartaID = models.ForeignKey("Cartas", on_delete=models.CASCADE, null=True)
     estado = models.CharField(max_length=50)
+    numeroJugadores = models.IntegerField()
 
 
 class Cartas(models.Model):

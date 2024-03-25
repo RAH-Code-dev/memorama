@@ -1,10 +1,10 @@
-from django.core.exceptions import MultipleObjectsReturned
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Profesores, Alumnos
+from .models import Profesores, Alumnos, Subpartidas, Partidas
 from .serializers import ProfesoresSerializer, AlumnosSerializer, PartidasSerializer, CartasSerializer
-from .serializers import PuntajeSerializer
+from .serializers import PuntajeSerializer, subPartidaSerializer
 
 
 class ProfesoresViewSet(viewsets.ModelViewSet):
@@ -38,7 +38,7 @@ def JsonCardsConverter(cartasJSON):
 def crearPartida(request):
     try:
         nombreProfesor = request.data["nombre profesor"]
-        nombreJuego = request.data["nombre Juego"]
+        nombreJuego = request.data["nombre juego"]
         cartas = request.data["cartas"]
     except KeyError:
         return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
@@ -69,6 +69,53 @@ def crearPartida(request):
         })
 
 
+def createSubGame(partidaID, numeroJugadores):
+    partida = Partidas.objects.get(pk=partidaID)
+    subPartidaSerializer(data={
+        'partidaID': partidaID,
+        # AQUI NO SE Q DEBE IR, PERO EN LA BDD LA TABLA PARTIDA NO TIENE CAMPO "cartaID"
+        'cartaID' : partida.cartaID,
+        'estado' : "iniciando",
+        "numeroJugadores": numeroJugadores
+    })
+    pass
+
+
+# FALTA Q SIRVA LA FUNCION createSubGame()
+@api_view(['POST'])
+def unirse(request):
+    if not Subpartidas.objects.last():
+        try:
+            createSubGame(request.data['partidaID'], 1)
+        except KeyError:
+            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+    
+    lastSubgame = Subpartidas.objects.last()
+    print(lastSubgame)
+    if lastSubgame.numeroJugadores >= 4:
+        try:
+            createSubGame(request.data['partidaID'], lastSubgame.numeroJugadores+1)
+        except KeyError:
+            return Response("Bad request", status=status.HTTP_400_BAD_REQUEST)
+    
+    return Response({"prueba": lastSubgame})
+
+
+# FALTAN HACER TESTS, DEBERIA FUNCIONAR PERO NO LO HE PROBADO
+@api_view(['GET'])
+def getAlumnosPartida(request, partidaID):
+    try:
+        alumnos = Alumnos.objects.filter(pk=partidaID)
+    except Alumnos.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if not alumnos.exists():
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = AlumnosSerializer(alumnos, many=True)
+    return Response(serializer.data)
+
+
 @api_view(['PUT'])
 def updateScore(request, id):
     try:
@@ -83,11 +130,16 @@ def updateScore(request, id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# FALTAN HACER TESTS, DEBERIA FUNCIONAR PERO NO LO HE PROBADO
 @api_view(['GET'])
-def getAlumnosSubpartida(request, id):
+def getAlumnosSubpartida(request, subpartidaID):
     try:
-        alumnos = Alumnos.objects.filter(subpartidaID=id)
+        alumnos = Alumnos.objects.filter(subpartidaID=subpartidaID)
     except Alumnos.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    print(alumnos.exists())
+    if not alumnos.exists():
         return Response(status=status.HTTP_404_NOT_FOUND)
     
     serializer = AlumnosSerializer(alumnos, many=True)
