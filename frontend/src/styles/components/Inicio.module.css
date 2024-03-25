@@ -1,42 +1,73 @@
 .container {
-  height: 100%;
+  /* Global component vars */
+  --buttonColor: rgba(255, 255, 255, 55%);
+  --buttonFontSize: .9rem;
+  --buttonPadding: .5rem;
+
+  --inputFontSize: .8rem;
+  --inputPadding: .6rem;
+
+  /* Component styles */
   display: flex;
+  height: 100vh;
+  width: 100vw;
+
   align-items: center;
   justify-content: center;
+
   flex-direction: column;
 }
 
-.titleSec {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.optionsComponent {
+  padding: 1rem;
+  width: 25%;
+
+  background-color: red;
 }
 
-.titleSec h1 {
-  font-size: 2rem;
-}
+.title {
+  width: 100%;
+  margin-top: 1.6rem;
+  padding: 0;
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.link {
-  background-color: #d90368;
-  padding: 0.7rem 1rem;
-  margin: 0.7rem 0;
-  border-radius: 16px;
-  text-decoration: none;
-  color: white;
-  border: solid 2px #d90368;
-  width: 10rem;
   text-align: center;
-  transition: all ease 0.3s;
+  font-size: 3.5rem;
 }
 
-.link:hover {
-  background-color: white;
-  color: black;
+.inputForm {
+  width: 100%;
+  margin-bottom: .8rem;
+  padding: var(--inputPadding);
+
+  font-size: var(--inputFontSize);
+  border: none;
+  box-sizing: border-box;
+}
+
+.submitButtonForm {
+  width: 100%;
+  padding: var(--buttonPadding);
+
+  font-size: var(--buttonFontSize);
+  color: var(--buttonColor);
+}
+
+.p {
+  text-align: center;
+}
+
+.gameOptions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.gameOptionsButton {
+  background-color: rgb(34, 97, 160);
+  width: 40%;
+  padding: var(--buttonPadding);
+
+  text-align: center;
+  font-size: var(--buttonFontSize);
+  text-decoration: unset;
+  color: var(--buttonColor);
 }
