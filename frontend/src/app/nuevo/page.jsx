@@ -8,7 +8,7 @@ export default function FormularioEdicionJuego() {
   const router = useRouter();
   return (
     <section className="box">
-      <form action="" id="ingresar-form">
+      <section id="ingresar-form">
         <label htmlFor="usuario">Ingresa tu nombre de usuario</label>
         <input
           className="input"
@@ -31,7 +31,7 @@ export default function FormularioEdicionJuego() {
           id="submit-btn"
           onClick={() => router.push("/stats")}
         />
-      </form>
+      </section>
     </section>
   );
 }
