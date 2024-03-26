@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Profesores, Alumnos, Subpartidas, Partidas
 from .serializers import ProfesoresSerializer, AlumnosSerializer, PartidasSerializer, CartasSerializer
-from .serializers import PuntajeSerializer, SubPartidaSerializer
+from .serializers import PuntajeSerializer, SubPartidaSerializer, NumeroJugadoresEstadoSerializer
 
 
 class ProfesoresViewSet(viewsets.ModelViewSet):
@@ -73,77 +73,68 @@ def crearPartida(request):
         })
 
 
-def createSubGame(partidaID, numeroJugadores):
-    subPartida = SubPartidaSerializer(data={
-        'partidaID': partidaID,
+def createSubGame(gameID, playersNumber):
+    subGame = SubPartidaSerializer(data={
+        'partidaID': gameID,
         'estado' : "iniciando",
-        "numeroJugadores": numeroJugadores
+        "numeroJugadores": playersNumber
     })
 
-    if subPartida.is_valid():
-        subPartida.save()
-        return subPartida.validated_data['subpartidaID']
+    if subGame.is_valid():
+        subGame = subGame.save()
+        return subGame
+    return Response(subGame.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    return Response(subPartida.errors, status=status.HTTP_400_BAD_REQUEST)
-
-def createAlumno(nombre, subPartidaID):
-    alumno = AlumnosSerializer(data={
-        'nombre' : nombre,
+def createAlumno(name, subGameID):
+    student = AlumnosSerializer(data={
+        'nombre': name,
         'puntaje' : 0,
-        'subpartidaID': subPartidaID,
+        'subpartidaID': subGameID,
     })
 
-    if alumno.is_valid():
-        alumno = alumno.save()
-        return alumno.alumnoID
+    if student.is_valid():
+        student = student.save()
+        return student.alumnoID
+    return Response(student.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    return Response(alumno.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# EL ENDPOINT FUNCIONA PARA GUARDAR DATOS EN LA DB, PERO TIENE UN ERROR
-# AL CREAR UNA SUBPARTIDA REGRESA UN KEY ERROR EN LUGAR DE LO QUE DEBERIA REGRESAR
 @api_view(['POST'])
 def unirse(request):
-    if not Subpartidas.objects.last():
-        try:
-            createSubGame(request.data['partidaID'], 0)
-        except KeyError as e:
-            return Response({"KeyError": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    
-    lastSubgame = Subpartidas.objects.last()
     try:
-        subGameID = lastSubgame.subpartidaID
-    except AttributeError:
-        return Response({"Error": "No existe una partida con ese ID"}, status=status.HTTP_400_BAD_REQUEST)
-
-    if lastSubgame.numeroJugadores >= 4:
-        try:
-            subGameID = createSubGame(request.data['partidaID'], 0)
-        except KeyError as e:
-            return Response({"KeyError here": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    
-        if not isinstance(subGameID, int):
-            return subGameID
-    
-    try:
-        alumnoID = createAlumno(request.data['nombre alumno'], subGameID)
+        gameID = request.data['partidaID']
+        studentName = request.data['nombre alumno']
     except KeyError as e:
-        return Response({"KeyError": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-    
-    if not isinstance(alumnoID, int):
-        return alumnoID
-    
-    lastSubgameSerializer = SubPartidaSerializer(lastSubgame, data={
-        'numeroJugadores': lastSubgame.numeroJugadores+1,
-        'partidaID' : lastSubgame.partidaID.pk,
-        'estado' : lastSubgame.estado,
+        return Response({"KeyError" : str(e)})
+
+    # se crea o obtiene la subpartida y el alumno
+    subGame = Subpartidas.objects.filter(partidaID=gameID).last()
+
+    if not subGame:
+        subGame = createSubGame(gameID, 0)
+
+        if isinstance(subGame, Response):
+            return subGame
+
+    if subGame.numeroJugadores >= 4:
+        subGame = createSubGame(gameID, 0)
+
+        if isinstance(subGame, Response):
+            return subGame
+
+    studentID = createAlumno(studentName, subGameID=subGame.subpartidaID)
+    if isinstance(studentID, Response):
+        return studentID
+
+    # se suma 1 al numero de jugadores
+    subGameSerializer = NumeroJugadoresEstadoSerializer(subGame, data={
+        "estado" : subGame.estado,
+        "numeroJugadores" : subGame.numeroJugadores+1,
     })
-    if not lastSubgameSerializer.is_valid():
-        return Response(lastSubgameSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    subGameID = lastSubgameSerializer.save()
+    if subGameSerializer.is_valid():
+        subGameSerializer.save()
     
     return Response({
-        "subpartidaID": subGameID.pk,
-        "alumnoID": alumnoID,
+        "subpartidaID": subGame.subpartidaID,
+        "alumnoID": studentID,
     })
 
 
@@ -151,14 +142,24 @@ def unirse(request):
 @api_view(['GET'])
 def getAlumnosPartida(request, partidaID):
     try:
-        alumnos = Alumnos.objects.filter(pk=partidaID)
-    except Alumnos.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        subGamesList = Subpartidas.objects.filter(subpartidaID=partidaID)
+    except Subpartidas.DoesNotExist:
+        return Response("No se encontraron subpartidas", status=status.HTTP_404_NOT_FOUND)
     
-    if not alumnos.exists():
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    if not subGamesList.exists():
+        return Response("No se encontraron subpartidas", status=status.HTTP_404_NOT_FOUND)
+    
+    alumnos = []
+
+    for subGame in subGamesList:
+        try:
+            alumnos.append(Alumnos.objects.filter(subpartidaID=subGame.subpartidaID))
+        except Alumnos.DoesNotExist:
+            pass
 
     serializer = AlumnosSerializer(alumnos, many=True)
+
+    print(serializer)
     return Response(serializer.data)
 
 
@@ -176,7 +177,6 @@ def updateScore(request, id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# FALTAN HACER TESTS, DEBERIA FUNCIONAR PERO NO LO HE PROBADO
 @api_view(['GET'])
 def getAlumnosSubpartida(request, subpartidaID):
     try:
@@ -184,7 +184,6 @@ def getAlumnosSubpartida(request, subpartidaID):
     except Alumnos.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    print(alumnos.exists())
     if not alumnos.exists():
         return Response(status=status.HTTP_404_NOT_FOUND)
     

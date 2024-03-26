@@ -50,6 +50,7 @@ class CartasSerializer(serializers.ModelSerializer):
             'partidaID',
         )
 
+
 class SubPartidaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subpartidas
@@ -59,6 +60,16 @@ class SubPartidaSerializer(serializers.ModelSerializer):
             'estado',
             'numeroJugadores',
         )
+
+
+class NumeroJugadoresEstadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subpartidas
+        fields = (
+            'estado',
+            'numeroJugadores',
+        )
+
 
 class CartasEnSubPartida(serializers.ModelSerializer):
     class Meta:
