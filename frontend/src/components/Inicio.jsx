@@ -34,29 +34,39 @@ export default function Inicio() {
                         ¡A Jugar!
                     </h2>
                     <input
-                        className={`${InputFont.className} ${styles.inputForm}`}
+                        className={`${InputFont.className} ${styles.input}`}
                         type="text"
                         name="idGame"
                         placeholder="Ingresa ID del juego..."
                     />
                     <br />
                     <input
-                        className={`${InputFont.className} ${styles.inputForm}`}
+                        className={`${InputFont.className} ${styles.input}`}
                         type="text"
                         name="playerName"
                         placeholder="Ingresa nombre de jugador"
                     />
                     <br />
                     <input
-                        className={`${ButtonFont.className} ${styles.submitButtonForm}`}
+                        className={`${ButtonFont.className} ${styles.submitButton}`}
                         type="submit"
                         value="Entrar al juego"
                     />
                 </form>
                 <p className={styles.p}>O</p>
                 <section className={styles.gameOptions}>
-                    <Link className={`${ButtonFont.className} ${styles.gameOptionsButton}`} href={"/crearJuego"}>Crear juego</Link>
-                    <Link className={`${ButtonFont.className} ${styles.gameOptionsButton}`} href={"/importarJuego"}>Importar juego</Link>
+                    <Link
+                        className={`${ButtonFont.className} ${styles.gameOptionsButton} ${styles.createGameButton}`}
+                        href={"/crearJuego"}
+                    >
+                        Crear juego
+                    </Link>
+                    <Link
+                        className={`${ButtonFont.className} ${styles.gameOptionsButton} ${styles.importGameButton}`}
+                        href={"/importarJuego"}
+                    >
+                        Importar juego
+                    </Link>
                 </section>
             </section>
         </div>
