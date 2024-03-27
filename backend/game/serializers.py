@@ -20,6 +20,7 @@ class AlumnosSerializer(serializers.ModelSerializer):
             'nombre',
             'puntaje',
             'subpartidaID',
+            'partidaID',
         )
 
 

@@ -11,6 +11,7 @@ class Alumnos(models.Model):
     nombre = models.CharField(max_length=50, blank=False, null=False)
     puntaje = models.IntegerField()
     subpartidaID = models.ForeignKey("Subpartidas", on_delete=models.CASCADE)
+    partidaID = models.ForeignKey("Partidas", on_delete=models.CASCADE)
 
 
 class Partidas(models.Model):

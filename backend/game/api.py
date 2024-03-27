@@ -85,11 +85,12 @@ def createSubGame(gameID, playersNumber):
         return subGame
     return Response(subGame.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def createAlumno(name, subGameID):
+def createAlumno(name, subGameID, gameID):
     student = AlumnosSerializer(data={
         'nombre': name,
         'puntaje' : 0,
-        'subpartidaID': subGameID,
+        'subpartidaID' : subGameID,
+        'partidaID' : gameID,
     })
 
     if student.is_valid():
@@ -120,7 +121,7 @@ def unirse(request):
         if isinstance(subGame, Response):
             return subGame
 
-    studentID = createAlumno(studentName, subGameID=subGame.subpartidaID)
+    studentID = createAlumno(studentName, subGame.subpartidaID, gameID)
     if isinstance(studentID, Response):
         return studentID
 
@@ -138,29 +139,19 @@ def unirse(request):
     })
 
 
-# FALTAN HACER TESTS, DEBERIA FUNCIONAR PERO NO LO HE PROBADO
 @api_view(['GET'])
 def getAlumnosPartida(request, partidaID):
     try:
-        subGamesList = Subpartidas.objects.filter(subpartidaID=partidaID)
-    except Subpartidas.DoesNotExist:
-        return Response("No se encontraron subpartidas", status=status.HTTP_404_NOT_FOUND)
-    
-    if not subGamesList.exists():
-        return Response("No se encontraron subpartidas", status=status.HTTP_404_NOT_FOUND)
-    
-    alumnos = []
+        alumnos = Alumnos.objects.filter(partidaID=partidaID)
+    except Alumnos.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    for subGame in subGamesList:
-        try:
-            alumnos.append(Alumnos.objects.filter(subpartidaID=subGame.subpartidaID))
-        except Alumnos.DoesNotExist:
-            pass
+    if not alumnos.exists():
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     serializer = AlumnosSerializer(alumnos, many=True)
-
-    print(serializer)
     return Response(serializer.data)
+
 
 
 @api_view(['PUT'])
