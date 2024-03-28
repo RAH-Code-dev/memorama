@@ -1,0 +1,24 @@
+.FormInput {
+    width: 350px;
+    padding: var(--inputPadding);
+  
+    background-color: unset;
+    
+    font-size: var(--inputFontSize);
+    color: var(--project-white);
+  
+    border: 1px solid var(--project-white);
+    border-radius: .2rem;
+  
+    box-sizing: border-box;
+    transition: .5s;
+}
+  
+.FormInput::placeholder {
+    opacity: 1;
+}
+
+.FormInput:focus,
+.FormInput:hover {
+    box-shadow: 0 0 .5vw 0.2vw rgba(201, 56, 204, 67);
+}
