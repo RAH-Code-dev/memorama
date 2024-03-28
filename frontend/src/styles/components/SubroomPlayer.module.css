@@ -1,0 +1,13 @@
+.SubroomPlayer {
+    transition: 1s ease-in-out;
+    height: fit-content;
+    padding: .25rem;
+    border-radius: .5rem;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.SubroomPlayer p {
+    margin: 0;
+}

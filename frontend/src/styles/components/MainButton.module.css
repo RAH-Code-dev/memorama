@@ -1,0 +1,46 @@
+.MainButton {
+    height: fit-content;
+    width: fit-content;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--project-primary-color);
+    padding: var(--padding-box);
+    color: var(--project-white);
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+
+    /* * Animation (Shimering) */
+    background-image: linear-gradient(
+        -60deg,
+        transparent 0%, transparent 40%,
+        #F4EEE377 40%, #F4EEE377 60%,
+        transparent 60%, transparent 100%
+    );
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    background-position-x: 150%;
+    /* * Animation (Shimering) */
+}
+
+.MainButton:hover {
+    /* * Animation (Shimering) */
+    background-position-x: -150%;
+    transition: 
+        background-position-x 1150ms;
+    /* * Animation (Shimering) */
+
+    transform: scale(1.10);
+    transition: .75s ease-in-out;
+}
+
+.MainButton:not(:hover) {
+    /* * Animation (Shimering) */
+    background-position-x: 150%;
+    transition: 
+        background-position-x 1250ms;
+    /* * Animation (Shimering) */
+    
+    transform: scale(1);
+    transition: .75s ease-in-out;
+}
