@@ -1,15 +1,76 @@
 .container {
-  height: 100%;
+  /* Global component vars */
+  --buttonColor: rgba(255, 255, 255, 55%);
+  --buttonFontSize: .9rem;
+  --buttonPadding: .5rem;
+  --buttonBackColor-create: #D0C030;
+  --buttonBackColor-import: #975999;
+
+  --submitButtonBackColor: #35AF15;
+
+  --inputColor: white;
+  --inputFontSize: .8rem;
+  --inputPadding: .6rem;
+
+  /* Component styles */
   display: flex;
+  height: 100vh;
+  width: 100vw;
+
   align-items: center;
   justify-content: center;
+
   flex-direction: column;
 }
 
-.titleSec {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.optionsComponent {
+  padding: 1rem;
+  width: 25%;
+}
+
+.title {
+  width: 100%;
+  margin: 0 0 1.6rem 0;
+  /* margin-top: 1.6rem; */
+  padding: 0;
+
+  text-align: center;
+  font-size: 3.5rem;
+}
+
+.input {
+  width: 100%;
+  margin-bottom: 1.4rem;
+  padding: var(--inputPadding);
+
+  background-color: unset;
+  
+  font-size: var(--inputFontSize);
+  color: var(--inputColor);
+
+  border: 1px solid white;
+  border-radius: .2rem;
+
+  box-sizing: border-box;
+  box-shadow: 0 0 .5vw 0.2vw rgba(201, 56, 204, 67);
+}
+
+.input::placeholder {
+  opacity: 1;
+}
+
+.submitButton {
+  width: 100%;
+  padding: var(--buttonPadding);
+
+  background-color: var(--submitButtonBackColor);
+  font-size: var(--buttonFontSize);
+  color: var(--buttonColor);
+
+  cursor: pointer;
+
+  border: unset;
+  border-radius: .2rem;
 }
 
 .titleSec h1 {
@@ -18,27 +79,29 @@
   padding: 0 1rem;
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.link {
-  background-color: #d90368;
-  padding: 0.7rem 1rem;
-  margin: 0.7rem 0;
-  border-radius: 16px;
-  text-decoration: none;
-  color: white;
-  border: solid 2px #d90368;
-  width: 10rem;
+.p {
   text-align: center;
-  transition: all ease 0.3s;
 }
 
-.link:hover {
-  background-color: white;
-  color: black;
+.gameOptions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.gameOptionsButton {
+  width: 40%;
+  padding: var(--buttonPadding);
+
+  text-align: center;
+  font-size: var(--buttonFontSize);
+  text-decoration: unset;
+  color: var(--buttonColor);
+}
+
+.createGameButton {
+  background-color: var(--buttonBackColor-create);
+}
+
+.importGameButton {
+  background-color: var(--buttonBackColor-import);
 }

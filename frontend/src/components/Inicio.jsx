@@ -1,26 +1,75 @@
+"use client";
+
 import Link from "next/link";
 import styles from "@/styles/components/Inicio.module.css";
+import { Londrina_Solid, Inter } from "next/font/google";
+
+const TitleFont = Londrina_Solid({
+    weight: "400",
+    subsets: ["latin"],
+});
+
+const InputFont = Inter({
+    weight: "100",
+    subsets: ["latin"],
+});
+
+const ButtonFont = Inter({
+    weight: "600",
+    subsets: ['latin']
+});
 
 export default function Inicio() {
-  return (
-    <section className={styles.container}>
-      
-      <section className={styles.titleSec}>
-        <h1>Memorama UdeG</h1>
-      </section>
+    const handleOnSubmit = (event) => {
+        event.preventDefault();
 
-      <section className={styles.buttons}>
-        <Link className={styles.link} href={"/crear"}>
-          Crear juego
-        </Link>
-        <Link className={styles.link} href={"/nuevo"}>
-          Nuevo juego
-        </Link>
-        <Link className={styles.link} href={"/jugar"}>
-          Ingresar a un juego
-        </Link>
-      </section>
+        // TODO: Create handle function.
+    };
 
-    </section>
-  );
+    return (
+        <div className={styles.container}>
+            <section className={styles.optionsComponent}>
+                <form onSubmit={handleOnSubmit} className={styles.joinGameForm}>
+                    <h2 className={`${TitleFont.className} ${styles.title}`}>
+                        ¡A Jugar!
+                    </h2>
+                    <input
+                        className={`${InputFont.className} ${styles.input}`}
+                        type="text"
+                        name="idGame"
+                        placeholder="Ingresa ID del juego..."
+                    />
+                    <br />
+                    <input
+                        className={`${InputFont.className} ${styles.input}`}
+                        type="text"
+                        name="playerName"
+                        placeholder="Ingresa nombre de jugador"
+                    />
+                    <br />
+                    <input
+                        className={`${ButtonFont.className} ${styles.submitButton}`}
+                        type="submit"
+                        value="Entrar al juego"
+                    />
+                </form>
+                <p className={styles.p}>O</p>
+                <section className={styles.gameOptions}>
+                    <Link
+                        className={`${ButtonFont.className} ${styles.gameOptionsButton} ${styles.createGameButton}`}
+                        href={"/crearJuego"}
+                    >
+                        Crear juego
+                    </Link>
+                    <Link
+                        className={`${ButtonFont.className} ${styles.gameOptionsButton} ${styles.importGameButton}`}
+                        href={"/importarJuego"}
+                    >
+                        Importar juego
+                    </Link>
+                </section>
+            </section>
+        </div>
+    );
+
 }
