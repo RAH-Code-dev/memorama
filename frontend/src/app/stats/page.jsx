@@ -10,27 +10,45 @@ const Page = () => {
   /*
    * I'm working with dummy data for now
    * This will be replaced with the real-time connection to the server
+   * 
+   * We have to get the Subrooms from the server and then map them to the SubroomStat component
+   * The game info probably from cookies
+   *    - Name of the game
+   *    - Game ID
+   *    - Number of players
+   *    - Teacher name
    */
 
-  const dummy = {
+  const pageDumy = { // Page dummy data
+    gameName: "Lenguaje Python (Sintaxis e historia)",
+    gameID: 12345678,
+    teacherName: "Zurisadai Vega Pinto",
+    playersOnline: 23
+  }
+
+  const dummy = { // Subroom dummy data
     subroomID: 1,
     score: 775,
     position: 1,
     players: [
       {
         name: "Zurisadai Vega Pinto",
+        position: 1,
         score: 300
       },
       {
         name: "Juan Perez",
+        position: 2,
         score: 200
       },
       {
         name: "Maria Lopez",
+        position: 3,
         score: 150
       },
       {
         name: "Jose Hernandez",
+        position: 4,
         score: 125
       }
     ]
@@ -44,16 +62,22 @@ const Page = () => {
         <section>
 
           <section className={style.stats__title}>
-            <h1>Lenguaje Python (Sintaxis e historia)</h1> <h4>12345678</h4>
+            
+            <h1>{pageDumy.gameName}</h1>
+            <h4>{pageDumy.gameID}</h4>
+          
           </section>
+
           <section className={style.stats__title}>
-            <h2>Zurisadai Vega Pinto</h2> <p>23 jugadores en línea</p>
+          
+            <h2>{pageDumy.teacherName}</h2>
+            <p>{pageDumy.playersOnline} jugadores en línea</p>
+          
           </section>
           
         </section>
 
         <section className={style.stats__buttons}>
-          <MainButton msg='Finalizar juego' />
           <MainButton msg='Finalizar juego' />
         </section>
 
@@ -63,12 +87,13 @@ const Page = () => {
 
         <thead>
           <tr>
-            <div className={style.stats__subroomsTitle}>Subsalas</div>
+            <th className={style.stats__subroomsTitle}>Subsalas</th>
           </tr>
         </thead>
 
         <tbody className={style.stats__subrooms}>
-          <tr> <SubroomStat {...dummy} /> </tr>
+          <SubroomStat {...dummy} />
+          <SubroomStat {...dummy} />
         </tbody>
 
       </table>

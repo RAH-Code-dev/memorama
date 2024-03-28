@@ -3,7 +3,6 @@
     width: fit-content;
     border: none;
     border-radius: 5px;
-    background-color: var(--project-primary-color);
     padding: var(--padding-box);
     color: var(--project-white);
     font-size: 0.75rem;
@@ -21,6 +20,16 @@
     background-repeat: no-repeat;
     background-position-x: 150%;
     /* * Animation (Shimering) */
+}
+
+.MainButton__1 {
+    background-color: var(--project-green);
+}
+.MainButton__2 {
+    background-color: var(--project-purple);
+}
+.MainButton__3 {
+    background-color: var(--project-yellow);
 }
 
 .MainButton:hover {

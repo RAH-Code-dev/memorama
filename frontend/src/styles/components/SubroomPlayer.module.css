@@ -1,13 +1,54 @@
 .SubroomPlayer {
-    transition: 1s ease-in-out;
+    width: var(--percent);
+    max-height: 2rem;
     height: fit-content;
     padding: .25rem;
     border-radius: .5rem;
 
+    overflow: hidden;
+    white-space: nowrap;
+
     display: flex;
     justify-content: space-evenly;
+    transition: 1s ease-in-out;
+    animation: grow 2s ease-in-out;
 }
 
 .SubroomPlayer p {
     margin: 0;
+    animation: showUp 2s;
+}
+
+.SubroomPlayer__1 {
+    background-color: var(--project-green);
+}
+
+.SubroomPlayer__2 {
+    background-color: var(--project-yellow);
+}
+
+.SubroomPlayer__3 {
+    background-color: var(--project-purple);
+}
+
+.SubroomPlayer__4 {
+    background-color: var(--project-gray);
+}
+
+@keyframes grow {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: var(--percent);
+    }
+}
+
+@keyframes showUp{
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

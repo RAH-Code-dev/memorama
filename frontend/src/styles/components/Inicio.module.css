@@ -1,21 +1,7 @@
-.container {
-  /* Global component vars */
-  --buttonColor: rgba(255, 255, 255, 55%);
-  --buttonFontSize: .9rem;
-  --buttonPadding: .5rem;
-  --buttonBackColor-create: #D0C030;
-  --buttonBackColor-import: #975999;
-
-  --submitButtonBackColor: #35AF15;
-
-  --inputColor: white;
-  --inputFontSize: .8rem;
-  --inputPadding: .6rem;
-
-  /* Component styles */
+.Inicio {
   display: flex;
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
+  height: 100%;
 
   align-items: center;
   justify-content: center;
@@ -23,85 +9,24 @@
   flex-direction: column;
 }
 
-.optionsComponent {
+.Inicio__Content {
   padding: 1rem;
-  width: 25%;
 }
 
-.title {
-  width: 100%;
-  margin: 0 0 1.6rem 0;
-  /* margin-top: 1.6rem; */
-  padding: 0;
+.Inicio__Form {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
 
+.Inicio__Text {
   text-align: center;
-  font-size: 3.5rem;
+  margin: .5rem;
 }
 
-.input {
-  width: 100%;
-  margin-bottom: 1.4rem;
-  padding: var(--inputPadding);
-
-  background-color: unset;
-  
-  font-size: var(--inputFontSize);
-  color: var(--inputColor);
-
-  border: 1px solid white;
-  border-radius: .2rem;
-
-  box-sizing: border-box;
-  box-shadow: 0 0 .5vw 0.2vw rgba(201, 56, 204, 67);
-}
-
-.input::placeholder {
-  opacity: 1;
-}
-
-.submitButton {
-  width: 100%;
-  padding: var(--buttonPadding);
-
-  background-color: var(--submitButtonBackColor);
-  font-size: var(--buttonFontSize);
-  color: var(--buttonColor);
-
-  cursor: pointer;
-
-  border: unset;
-  border-radius: .2rem;
-}
-
-.titleSec h1 {
-  font-size: 2rem;
-  text-align: center;
-  padding: 0 1rem;
-}
-
-.p {
-  text-align: center;
-}
-
-.gameOptions {
+.Inicio__Options {
   display: flex;
   justify-content: space-between;
-}
-
-.gameOptionsButton {
-  width: 40%;
-  padding: var(--buttonPadding);
-
-  text-align: center;
-  font-size: var(--buttonFontSize);
-  text-decoration: unset;
-  color: var(--buttonColor);
-}
-
-.createGameButton {
-  background-color: var(--buttonBackColor-create);
-}
-
-.importGameButton {
-  background-color: var(--buttonBackColor-import);
 }
