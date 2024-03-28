@@ -3,110 +3,77 @@
 import style from "@/styles/pages/stats.module.css"
 import Link from "next/link";
 import { useState, useEffect } from "react"
+import MainButton from "@/components/MainButton"
+import SubroomStat from "@/components/SubroomStat"
 
 const Page = () => {
-  const [teamsData, setTeamsData] = useState([
-    {   
-      teamId: "1",
-      points: 0,
-    },
-    {
-      teamId: "2",
-      points: 0
-    },
-    {
-      teamId: "3",
-      points: 0
-    },
-    {
-      teamId: "4",
-      points: 0
-    }
-  ]);
+  /*
+   * I'm working with dummy data for now
+   * This will be replaced with the real-time connection to the server
+   */
 
-  useEffect(() => {
-    let seconds = 0;
-    const intervalID = setInterval(() => {
-      if (seconds < 4) {
-        addTeamsPoints();
-        seconds++;
-      } else {
-        document.getElementById("t1Classification").innerText = "Position 2 | ";
-        document.getElementById("t2Classification").innerText = "Position 4 | ";
-        document.getElementById("t3Classification").innerText = "Position 3 | ";
-        document.getElementById("t4Classification").innerText = "Winner! | ";
-
-        document.getElementById("returnButton").style.visibility = "visible";
-
-        clearInterval(intervalID);
+  const dummy = {
+    subroomID: 1,
+    score: 775,
+    position: 1,
+    players: [
+      {
+        name: "Zurisadai Vega Pinto",
+        score: 300
+      },
+      {
+        name: "Juan Perez",
+        score: 200
+      },
+      {
+        name: "Maria Lopez",
+        score: 150
+      },
+      {
+        name: "Jose Hernandez",
+        score: 125
       }
-    }, 1000);
-
-    return () => clearInterval(intervalID);
-  }, []);
-
-  function addTeamsPoints() {
-    setTeamsData(prevTeamsData => {
-      return prevTeamsData.map(team => {
-        let points = 0;
-        if (team.teamId === "1") points = team.points + 3;
-        if (team.teamId === "2") points = team.points + 1;
-        if (team.teamId === "3") points = team.points + 2;
-        if (team.teamId === "4") points = team.points + 4;
-
-        return {
-          ...team,
-          points: points
-        };
-      });
-    });
+    ]
   }
   
   return (
-    <section className={style.statsParent}>
-      <section id={style.stats}>
-        <table>
-          <thead>
-            <tr>
-              <th id={style.teamsHeader}><h3>Teams</h3></th>
-              <th id={style.pointsHeader}><h3>Points</h3></th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              Object.values(teamsData).map(teamData => {
-                const tClassification = style[`t${teamData.teamId}Classification`]
-                const tPercentage = style[`t${teamData.teamId}Percentage`]
+    <main className={style.stats__main}>
 
-                return(
-                  <tr key={teamData.teamId}>
+      <section className={style.stats__header}>
+        
+        <section>
 
-                    <td className={style.teamName}>
-                      <p 
-                        className={`${style.position} ${tClassification}`} 
-                        id={`t${teamData.teamId}Classification`}></p>
-                      <p className={style.teamsList}>Team {teamData.teamId}</p>
-                    </td>
-                    
-                    <td>
-                      <p 
-                        className={`${tPercentage} ${style.percentage}`}
-                        id={`t${teamData.teamId}Percentage`}
-                        style={{width: (teamData.points * 6.25) + '%'}}
-                      >
-                        <strong>{teamData.points}</strong>
-                      </p>
-                    </td>
+          <section className={style.stats__title}>
+            <h1>Lenguaje Python (Sintaxis e historia)</h1> <h4>12345678</h4>
+          </section>
+          <section className={style.stats__title}>
+            <h2>Zurisadai Vega Pinto</h2> <p>23 jugadores en línea</p>
+          </section>
+          
+        </section>
 
-                  </tr>
-                )
-              })
-            }
-          </tbody>
+        <section className={style.stats__buttons}>
+          <MainButton msg='Finalizar juego' />
+          <MainButton msg='Finalizar juego' />
+        </section>
+
+      </section>
+
+      <table className={style.stats__subroomsSection}>
+
+        <thead>
+          <tr>
+            <div className={style.stats__subroomsTitle}>Subsalas</div>
+          </tr>
+        </thead>
+
+        <tbody className={style.stats__subrooms}>
+          <tr> <SubroomStat {...dummy} /> </tr>
+        </tbody>
+
       </table>
-      <Link href={"/"} className={style.returnButton} id="returnButton">Regresar al inicio</Link>
-    </section>
-  </section>
+
+    </main>
   )
 }
 
