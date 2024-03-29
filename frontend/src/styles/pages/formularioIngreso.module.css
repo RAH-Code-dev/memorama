@@ -1,25 +1,9 @@
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
-
-html,
-body {
-  width: 100%;
+.container {
   height: 100%;
-}
-
-body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #161b3d;
 }
-
 
 .box {
   background-color: white;
@@ -29,14 +13,14 @@ body {
   color: black;
 }
 
-#ingresar-form {
+#ingresarForm {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
-#ingresar-form .input {
+#ingresarForm .input {
   font-size: 1.1rem;
   padding: 0 0.1rem;
   padding-bottom: 0.1rem;
@@ -47,12 +31,11 @@ body {
   border-bottom: #d90368 solid 2px;
 }
 
-#ingresar-form label {
+#ingresarForm label {
   font-size: 1.1rem;
 }
 
-
-#submit-btn {
+#submitBtn {
   margin-top: 5vh;
   padding: 0.4rem 0.6rem;
   border-radius: 16px;
@@ -61,9 +44,10 @@ body {
   background-color: #d90368;
   border: #d90368 solid 2px;
   color: white;
+  text-decoration: none;
 }
 
-#submit-btn:hover {
+#submitBtn:hover {
   transform: scale(1.05);
   background-color: white;
   color: black;

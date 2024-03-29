@@ -1,14 +1,14 @@
 import React from 'react'
 import Podio from '@/components/Podio'
-import '@/styles/pages/podioPage.css'
+import style from '@/styles/pages/podioPage.module.css'
 import Link from 'next/link'
 
 export default function Page() {
   return (
-    <section className='stats'>
+    <section className={style.stats}>
       <h1>Ganadores del juego</h1>
 
-      <section className='podium'>
+      <section className={style.podium}>
 
         <Podio 
           usuario="Luis"
@@ -28,7 +28,7 @@ export default function Page() {
 
       </section>
 
-      <Link className='cta-podium' href="/formIngreso">Volver al registro</Link>
+      <Link className={style.ctaPodium} href="/formIngreso">Volver al registro</Link>
 
     </section>
   )
