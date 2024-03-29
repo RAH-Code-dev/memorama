@@ -1,5 +1,4 @@
-import React from "react";
-import GameForm from "@/components/GameForm";
+import GameForm from "@/components/host/GameForm";
 import styles from "@/styles/pages/create.module.css";
 
 const Create = () => {

@@ -15,7 +15,8 @@
 }
   
 .FormInput::placeholder {
-    opacity: 1;
+    opacity: .75;
+    color: var(--project-white);
 }
 
 .FormInput:focus,

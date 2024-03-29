@@ -26,7 +26,7 @@ export default function Inicio() {
 
             <section className={styles.Inicio__Content}>
 
-                <DistinctiveTitle text="¡A Jugar!" center={true}/>
+                <DistinctiveTitle center={true}>¡A Jugar!</DistinctiveTitle>
 
                 <form onSubmit={handleOnSubmit} className={styles.Inicio__Form}>
                     

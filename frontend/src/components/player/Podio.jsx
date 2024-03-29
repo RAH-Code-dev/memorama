@@ -1,5 +1,4 @@
-import React from 'react'
-import style from '@/styles/components/podio.module.css'
+import style from '@/styles/components/player/podio.module.css'
 
 export default function Podio( { usuario, lugar, duracion } ) {
   const podioClass = style[`podio${lugar}`]
