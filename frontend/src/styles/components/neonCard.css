@@ -13,20 +13,22 @@
     justify-content: center;
     transition: .8s;
     animation-name: cardShine;
-    animation-duration: 7000ms;
+    animation-duration: 3000ms;
     animation-iteration-count: infinite;
     animation-direction: alternate; 
 }
 @keyframes cardShine{
-    0%{background-color: #eaff2ad2;}
-    33%{background-color: #5ffd40c0;}
-    66%{background-color: #dd53f8d2;}
-    100%{background-color: #43aaffd2;}
+    0%{background-color: #dd53f8d2;}
+    100%{background-color: #dd53f898;}
 }
-.card:hover{
+.flip:hover{
     transform: rotateY(180deg);
     animation-iteration-count: 0;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+.flip:hover ~ .tit{
+    color: black;
 }
 .tit{
     font-family: "Londrina Solid", sans-serif;

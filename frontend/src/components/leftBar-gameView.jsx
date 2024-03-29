@@ -1,14 +1,47 @@
 import React from "react";
-import '../Styles/components/leftBar-gameView.css';
+import '@/Styles/components/leftBar-gameView.css';
+import PlayerScore from '@/components/playerScore'
+import { Londrina_Solid, Inter } from "next/font/google";
 
-const LeftBarGame = () =>{
+const TitleFont = Londrina_Solid({
+    weight: "400",
+    subsets: ["latin"],
+});
+
+const smallFont = Inter({
+    weight: "100",
+    subsets: ["latin"],
+});
+//titGame
+const LeftBarGame = (props) =>{
     return(
         <div className="left">
             <div className="titleContainer">
-                <h1 className="titGame">Nombre de la partida</h1>
+                <h1 className={`${TitleFont.className} titGame`}>{props.titGame}</h1>
             </div>
             <div className="playersContainer">
-                <h1 className="teamName">Nombre del equipo</h1>
+                <div className="titPlayersContainer">
+                    <h1 className={`${smallFont.className} teamName`}>{props.teamName}</h1>
+                </div>
+                <div className="playerScore">
+                    <div className="line"></div>
+                    <PlayerScore
+                    name = "Tamarindo"
+                    score = "0"
+                    />
+                    <PlayerScore
+                    name = "Chilaquil"
+                    score = "0"
+                    />
+                    <PlayerScore
+                    name = "Camote"
+                    score = "0"
+                    />
+                    <PlayerScore
+                    name = "Domingo"
+                    score = "0"
+                    />
+                </div>
             </div>
         </div>
     )

@@ -6,4 +6,14 @@
     position: absolute;
     bottom: -8vw;
     left: -8vw;
+    animation-name: circleShine;
+    animation-duration: 7000ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes circleShine{
+    0%{background-color: #eaff2ad2;}
+    33%{background-color: #5ffd40c0;}
+    66%{background-color: #dd53f8d2;}
+    100%{background-color: #43aaffd2;}
 }
