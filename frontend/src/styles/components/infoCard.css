@@ -1,0 +1,25 @@
+.hidden{
+    display: none;
+}
+.allContainer{
+    width: 35vw;
+    height: 90vh;
+    background-color: #896588;
+    position: absolute;
+    top: 5vh;
+    left: 32vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+.infoCardContainer{
+    width: 33.5vw;
+    height: 87vh;
+    background-color: rgb(12, 59, 59);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}

@@ -1,0 +1,9 @@
+.cir1{
+    width: 20vw;
+    height: 20vw;
+    background-color: #fdff78c2;
+    border-radius: 100%;
+    position: absolute;
+    top: -5vw;
+    right: -5vw;
+}
