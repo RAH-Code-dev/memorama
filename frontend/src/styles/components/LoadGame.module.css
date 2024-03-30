@@ -1,0 +1,45 @@
+.LoadContainer{
+    width: 30vh;
+    height: 20vh;
+    border: 1px grey;
+    background-color: #E0DFDF;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: #d248e7 0px 0px 15px 0px, #EC75FF 0px 0px 0px 1px;
+    animation-name: ateez;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes ateez{
+    0%{
+        box-shadow: #d669e7 0px 0px 15px 0px, #dba9e2a2 0px 0px 0px 1px;
+    }
+    100%{
+        box-shadow: #610a6f 0px 0px 15px 0px, #774280 0px 0px 0px 1px;
+    }
+  }
+ .file{
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  } 
+
+  .LoadContainer:hover{
+    opacity: 0.6;
+  }
+  .inputFile{
+    text-align: center;
+    color: gainsboro;
+    font-weight: 600;
+    padding: 10px;
+    position: relative;
+  }
+  .inputFile img{
+    width: 100px;
+  }
+  
+ 
+  
+ 

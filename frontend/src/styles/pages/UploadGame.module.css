@@ -1,0 +1,41 @@
+.container{
+    width: 20vw;
+    height: 20vw;
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: black;
+    margin-top: 10vw;
+    background-color: whitesmoke;
+    position: relative;
+}
+.title{
+    color: black;
+}
+.inputSubmit{
+    width: 30vh;
+    height: 5vh;
+    position: absolute;
+    bottom: 5vh;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: center;
+  }
+
+  .inputSubmit input{
+    width: 30vh;
+    height: 4vh;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px gray;
+	cursor: pointer;
+    background-color: #ecfe29bc;
+  }
