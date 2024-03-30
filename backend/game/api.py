@@ -2,15 +2,14 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Profesores, Alumnos, Subpartidas, Partidas
+from .models import Profesores, Alumnos, Subpartidas, Partidas, Cartas, CartasEnSubPartida, VisibilidadSubsala
 from .serializers import ProfesoresSerializer, AlumnosSerializer, PartidasSerializer, CartasSerializer
-from .serializers import PuntajeSerializer, SubPartidaSerializer, NumeroJugadoresEstadoSerializer
-
+from .serializers import PuntajeSerializer, SubPartidaSerializer, NumeroJugadoresEstadoSerializer, CartasEnSubPartidaSerializer
+from rest_framework import viewsets
 
 class ProfesoresViewSet(viewsets.ModelViewSet):
     queryset = Profesores.objects.all()
     serializer_class = ProfesoresSerializer
-    
 
 def JsonCardsConverter(cartasJSON, partidaID):
     for cardNum in cartasJSON:
@@ -36,7 +35,6 @@ def JsonCardsConverter(cartasJSON, partidaID):
         
         serializerQuestionCard.save()
         serializerAnswerCard.save()
-
 
 @api_view(['POST'])
 def crearPartida(request):
@@ -85,6 +83,12 @@ def createSubGame(gameID, playersNumber):
         return subGame
     return Response(subGame.errors, status=status.HTTP_400_BAD_REQUEST)
 
+def turnoSubpartida(subGameID, alumnoID):
+    subpartida = Subpartidas.objects.filter(subpartidaID=subGameID).first()
+    if subpartida and not subpartida.turnoAlumnoID:
+        subpartida.turnoAlumnoID = alumnoID
+        subpartida.save()
+
 def createAlumno(name, subGameID, gameID):
     student = AlumnosSerializer(data={
         'nombre': name,
@@ -95,6 +99,8 @@ def createAlumno(name, subGameID, gameID):
 
     if student.is_valid():
         student = student.save()
+
+        turnoSubpartida(subGameID, student.pk)
         return student.alumnoID
     return Response(student.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -180,3 +186,67 @@ def getAlumnosSubpartida(request, subpartidaID):
     
     serializer = AlumnosSerializer(alumnos, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def getCartasPartida(request, partidaID):
+    try:
+        cartas = Cartas.objects.filter(partidaID=partidaID)
+    except Cartas.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if not cartas.exists():
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = CartasSerializer(alumnos, many=True)
+    return Response(serializer.data)
+
+def visualizarSubPartida(alumno):
+    subpartidaview = VisibilidadSubsala.objects.filter(pk = alumno).first()
+    subpartidaview.visto = True
+    subpartidaview.save()
+
+def usuariosVieron(subpartida):
+    alumnos = Alumnos.objects.filter(subpartidaID=subpartidaID)
+
+    i = 0
+    for alumno in alumnos:
+        subpartidaview = VisibilidadSubsala.objects.filter(pk = alumno).first()
+
+        if subpartidaview.visto:
+            i = i + 1
+    
+    if usuariosVieron(alumnos) == len(alumnos):
+        return True
+    
+    return False
+
+def otrasVisualizaciones(subpartida):
+    alumnos = Alumnos.objects.filter(subpartidaID=subpartidaID)
+
+    if usuariosVieron:
+        for alumno in alumnos:
+            subpartidaview = VisibilidadSubsala.objects.filter(pk = alumno).first()
+            subpartidaview.visto = False
+            subpartidaview.save()
+
+@api_view(['GET'])
+def getCartasSubPartida(request, subpartidaID):
+    visualizarSubPartida(request.query_params.get("alumno"))
+    otrasVisualizaciones(subpartidaID)
+
+    try:
+        cartas = CartasEnSubPartida.objects.filter(subpartidaID=subpartidaID)
+    except Cartas.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if not cartas.exists():
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = CartasEnSubPartidaSerializer(cartas, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def voltearCartas(request, subpartidaID):
+    # voltear cartas
+    # si no es par voltear de nuevo
+    pass

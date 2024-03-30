@@ -72,7 +72,7 @@ class NumeroJugadoresEstadoSerializer(serializers.ModelSerializer):
         )
 
 
-class CartasEnSubPartida(serializers.ModelSerializer):
+class CartasEnSubPartidaSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartasEnSubPartida
         fields = (
