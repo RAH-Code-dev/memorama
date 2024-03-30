@@ -49,11 +49,17 @@ const GameForm = () => {
           type="text"
           value={gameName}
           onChange={handleGameNameChange}
-          placeholder="Game Name"
+          placeholder="Nombre del juego"
+        />
+        <input 
+        className={styles.input_text}
+        type="text" 
+        onChange={handleGameNameChange}
+        placeholder="Nombre Usuario"
         />
       </label>
       <button className={styles.button} onClick={handleAddCard}>
-        Add Card
+        Añadir carta
       </button>
       {cards.map((card, index) => (
         <CardForm
@@ -68,7 +74,7 @@ const GameForm = () => {
         className={`${styles.button} ${styles.button_export}`}
         onClick={() => exportGameData(gameName, cards)}
       >
-        Export Data
+       Exportar datos
       </button>
     </div>
   );

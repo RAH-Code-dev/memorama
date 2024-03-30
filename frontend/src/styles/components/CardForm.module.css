@@ -1,21 +1,25 @@
 .cardContainer {
-  background-color: white;
   color: black;
   border-radius: 20px;
-  border: 2px solid #d90368;
   margin-top: 15px;
   padding: 15px;
 }
 
 .input_text {
+  width: 25vw;
+  height: 6vh;
+  background-color: black;
+  color: white;
   font-size: 1.1rem;
   padding: 0 0.1rem;
   padding-bottom: 0.1rem;
   margin-top: 1rem;
   margin-bottom: 2rem;
-  border: none;
+  margin: auto;
+  border: 1px solid #FFFFFF;
   outline: none;
-  border-bottom: #d90368 solid 2px;
+  border-radius: 2px;
+  box-shadow: 0px 0px 15px 5px #C938CCAB;
 }
 
 .labelInput {
@@ -25,12 +29,17 @@
 }
 
 .deleteButton {
+  width: auto;
+  height: 1.7rem;
+  font-size: 13px;
+  font-family: "Montserrat", sans-serif;
+  margin-left: 18%;
   background-color: #ff5555;
   color: #fff;
   padding: 5px 10px;
   border: none;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 .deleteButton:hover {

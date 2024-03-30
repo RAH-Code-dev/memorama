@@ -18,7 +18,7 @@ const CardForm = ({ index, card, onCardChange, onDeleteCard }) => {
           value={card.question}
           onChange={(e) => onCardChange(index, "question", e.target.value)}
           className={styles.input_text}
-          placeholder="Question"
+          placeholder="Pregunta"
         />
       </label>
       <label className={styles.labelInput}>
@@ -27,15 +27,15 @@ const CardForm = ({ index, card, onCardChange, onDeleteCard }) => {
           value={card.answer}
           onChange={(e) => onCardChange(index, "answer", e.target.value)}
           className={styles.input_text}
-          placeholder="Answer"
+          placeholder="Respuesta"
         />
       </label>
       <button
         className={styles.deleteButton}
         onClick={() => onDeleteCard(index)}
       >
-        Delete Card
-      </button>
+Eliminar carta      
+</button>
     </div>
   );
 };
