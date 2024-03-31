@@ -1,5 +1,5 @@
 import React from "react";
-import '@/Styles/components/leftBar-gameView.css';
+import '@/styles/components/leftBar-gameView.css';
 import PlayerScore from '@/components/playerScore'
 import { Londrina_Solid, Inter } from "next/font/google";
 

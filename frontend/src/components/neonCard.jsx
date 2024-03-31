@@ -1,5 +1,5 @@
 import React from "react";
-import '../Styles/components/neonCard.css';
+import '../styles/components/neonCard.css';
 
 const NeonCard = () =>{
     return(
