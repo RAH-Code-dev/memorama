@@ -1,4 +1,3 @@
-import React from "react";
 import '@/Styles/components/infoCard.css';
 
 const InfoCard = (props) =>{

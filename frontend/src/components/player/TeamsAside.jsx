@@ -1,6 +1,6 @@
 import React from "react";
 import '@/Styles/components/leftBar-gameView.css';
-import PlayerScore from '@/components/playerScore'
+import PlayerScore from '@/components/player/PlayerScore'
 import { Londrina_Solid, Inter } from "next/font/google";
 
 const TitleFont = Londrina_Solid({
@@ -13,7 +13,7 @@ const smallFont = Inter({
     subsets: ["latin"],
 });
 //titGame
-const LeftBarGame = (props) =>{
+const TeamsAside = (props) =>{
     return(
         <div className="left">
             <div className="titleContainer">
@@ -46,4 +46,4 @@ const LeftBarGame = (props) =>{
         </div>
     )
 }
-export default LeftBarGame;
+export default TeamsAside;
