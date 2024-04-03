@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Card({ card, setSelectedCards, selectedCards }) {
   const [isFlipped, setIsFlipped] = useState(false);
