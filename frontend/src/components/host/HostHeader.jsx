@@ -13,7 +13,7 @@ export default function HostHeader({ children, gameInfo }) {
       <section>
         <section className={styles.HostHeader__title}>
           <DistinctiveTitle size={'2.25rem'}>{gameName}</DistinctiveTitle>
-          <h4>{gameID}</h4>
+          <h4>#{gameID}</h4>
         </section>
 
         <section className={styles.HostHeader__title}>
