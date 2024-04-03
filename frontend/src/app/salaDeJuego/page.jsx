@@ -1,20 +1,13 @@
 import React from "react";
 import '@/styles/pages/gameView.css'
 import NeonCard from '@/components/neonCard'
-import Circle0 from '@/components/circle0'
-import Circle1 from '@/components/circle1'
-import Circle2 from '@/components/circle2'
-import Circle3 from '@/components/circle3'
 import LeftBarGame from '@/components/leftBar-gameView'
 import InfoCard from '@/components/infoCard'
 
 const GameView = () =>(
     <div>
 
-        <Circle0/>
-        <Circle1/>
-        <Circle2/>
-        <Circle3/>
+        
         <LeftBarGame
         titGame="Nombre de la partida"
         teamName = "Nombre del equipo"
