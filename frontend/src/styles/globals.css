@@ -1,10 +1,30 @@
+:root {
+  /* TODO: Place variables here */
+  /** Colors */
+  --project-white: #F4EEE3;
+  --project-yellow: #D0C030;
+  --project-purple: #975999;
+  --project-green: #35AF15;
+  --project-gray: #545554;
+
+  /** Spacing */
+  --padding-container: 1.25rem 1.75rem;
+  --padding-box: 0.625rem 1.75rem;
+  --padding-page: 1.25rem 1.75rem;
+
+  --buttonFontSize: .9rem;
+  --buttonPadding: .5rem;
+  --inputFontSize: .8rem;
+  --inputPadding: .6rem;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
   background-color: #000000;
-  color: white;
+  color: var(--project-white);
   font-size: clamp(16px, 1.5vw, 20px);
 
   height: 100%;

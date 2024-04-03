@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
-import "../styles/components/Board.css";
+import "@/styles/components/player/Board.css";
 import Card from "./Card";
+/*
+ * Please someone migrate this to a CSS module, I got freaky trying
+ * Either way this will be replaced by Edgar (and/or Adriel)
+ */
 
 export default function BoardComponent() {
   const [cards, setCards] = useState([]);

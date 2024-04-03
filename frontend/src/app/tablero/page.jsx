@@ -1,7 +1,7 @@
 "use client";
 
 // import AsideListComponent from "@/components/AsideListComponent";
-import BoardComponent from "@/components/Board";
+import BoardComponent from "@/components/player/Board";
 import styles from "@/styles/pages/Board.module.css";
 
 const BoardPage = () => {

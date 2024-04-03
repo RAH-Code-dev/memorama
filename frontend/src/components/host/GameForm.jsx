@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import CardForm from "./CardForm";
-import styles from "@/styles/components/GameForm.module.css";
+import styles from "@/styles/components/host/GameForm.module.css";
 import { useRouter } from "next/navigation";
 
 const GameForm = () => {

@@ -1,0 +1,44 @@
+.Iniciar__main {
+  padding: var(--padding-page);
+}
+
+.Iniciar__OnlinePlayers {
+  margin-top: 2rem;
+}
+
+.Iniciar__TableTitle {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  border-radius: .75rem;
+  background-color: var(--project-purple);
+  padding: 0.375rem 0;
+  color: var(--project-white);
+}
+
+.Iniciar__Players {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 250px);
+  gap: 1rem;
+  transition: 1s ease-in-out;
+}
+
+.Iniciar__Player {
+  max-width: 250px;
+  height: fit-content;
+  border-radius: 1rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: var(--padding-box);
+  background-color: var(--project-gray);
+  transition: .5s ease-in-out;
+}
+
+.Iniciar__Player:hover {
+  transform: scale(1.1);
+  
+}
