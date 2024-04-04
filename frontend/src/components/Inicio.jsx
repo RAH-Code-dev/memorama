@@ -2,24 +2,19 @@
 
 import Link from "next/link";
 import styles from "@/styles/components/Inicio.module.css";
-import { Londrina_Solid, Inter } from "next/font/google";
+import DistinctiveTitle from "./DistinctiveTitle";
+import FormInput from "./FormInput";
+import MainButton from "./MainButton";
+import { useRouter } from "next/navigation";
+import { Main } from "next/document";
 
-const TitleFont = Londrina_Solid({
-    weight: "400",
-    subsets: ["latin"],
-});
-
-const InputFont = Inter({
-    weight: "100",
-    subsets: ["latin"],
-});
-
-const ButtonFont = Inter({
-    weight: "600",
-    subsets: ['latin']
-});
 
 export default function Inicio() {
+    const router = useRouter()
+    const redirect = (path) => {
+        router.push(path)
+    }
+
     const handleOnSubmit = (event) => {
         event.preventDefault();
 
@@ -27,49 +22,47 @@ export default function Inicio() {
     };
 
     return (
-        <div className={styles.container}>
-            <section className={styles.optionsComponent}>
-                <form onSubmit={handleOnSubmit} className={styles.joinGameForm}>
-                    <h2 className={`${TitleFont.className} ${styles.title}`}>
-                        ¡A Jugar!
-                    </h2>
-                    <input
-                        className={`${InputFont.className} ${styles.input}`}
+        <section className={styles.Inicio}>
+
+            <section className={styles.Inicio__Content}>
+
+                <DistinctiveTitle center={true}>¡A Jugar!</DistinctiveTitle>
+
+                <form onSubmit={handleOnSubmit} className={styles.Inicio__Form}>
+                    
+                    <FormInput
                         type="text"
-                        name="idGame"
-                        placeholder="Ingresa ID del juego..."
+                        name="gameCode"
+                        placeholder="Ingresa código de juego"
                     />
-                    <br />
-                    <input
-                        className={`${InputFont.className} ${styles.input}`}
+
+                    <FormInput
                         type="text"
                         name="playerName"
                         placeholder="Ingresa nombre de jugador"
                     />
-                    <br />
-                    <input
-                        className={`${ButtonFont.className} ${styles.submitButton}`}
-                        type="submit"
-                        value="Entrar al juego"
-                    />
+
+                    <MainButton width='350px' msg="Entrar al juego" />
+
                 </form>
-                <p className={styles.p}>O</p>
-                <section className={styles.gameOptions}>
-                    <Link
-                        className={`${ButtonFont.className} ${styles.gameOptionsButton} ${styles.createGameButton}`}
-                        href={"/crearJuego"}
-                    >
-                        Crear juego
-                    </Link>
-                    <Link
-                        className={`${ButtonFont.className} ${styles.gameOptionsButton} ${styles.importGameButton}`}
-                        href={"/importarJuego"}
-                    >
-                        Importar juego
-                    </Link>
+
+                <p className={styles.Inicio__Text}>O</p>
+
+                <section className={styles.Inicio__Options}>
+                    <MainButton
+                        level={3}
+                        msg="Crear juego"
+                        onclick={() => redirect("/crearJuego")}
+                    />
+                    <MainButton
+                        level={2}
+                        msg="Importar juego"
+                        onclick={() => redirect("/importarJuego")}
+                    />
                 </section>
             </section>
-        </div>
+
+        </section>
     );
 
 }

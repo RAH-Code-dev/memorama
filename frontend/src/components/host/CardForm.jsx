@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/components/CardForm.module.css";
+import styles from "@/styles/components/host/CardForm.module.css";
 
 const CardForm = ({ index, card, onCardChange, onDeleteCard }) => {
   const handleQuestionChange = (e) => {

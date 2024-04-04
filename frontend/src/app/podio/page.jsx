@@ -1,5 +1,5 @@
 import React from 'react'
-import Podio from '@/components/Podio'
+import Podio from '@/components/player/Podio'
 import style from '@/styles/pages/podioPage.module.css'
 import Link from 'next/link'
 import Circle0 from '@/components/circle0'

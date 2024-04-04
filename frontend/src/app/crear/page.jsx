@@ -1,5 +1,4 @@
-import React from "react";
-import GameForm from "@/components/GameForm";
+import GameForm from "@/components/host/GameForm";
 import styles from "@/styles/pages/create.module.css";
 import Circle0 from '@/components/circle0'
 import Circle1 from '@/components/circle1'
