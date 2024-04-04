@@ -1,5 +1,9 @@
+
+
 .stats__main {
     padding: var(--padding-page);
+    height: 100vh;
+    overflow: scroll;
 }
 
 .stats__subroomsSection {

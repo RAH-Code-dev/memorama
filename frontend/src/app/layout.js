@@ -1,13 +1,18 @@
-import'@/styles/globals.css';
+import Background from '@/components/background/Background';
+import '@/styles/globals.css';
+
 
 export const metadata = {
   title: 'Memorama Udg'
 }
 
 export default function RootLayout({ children }) {
- return (
+  return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        <Background />
+        {children}
+      </body>
     </html>
   )
 }

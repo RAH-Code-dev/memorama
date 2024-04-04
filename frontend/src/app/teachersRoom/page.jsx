@@ -1,7 +1,7 @@
 import React from "react";
 import '@/styles/pages/teachersRoom.css';
 
-function App() {
+export default function App() {
 
   let usuario = 'Usuario 1';
   let salaName = 'Sala de ' + usuario;
@@ -28,5 +28,3 @@ function App() {
     </div>
   );
 }
-
-export default TeachersRoom;

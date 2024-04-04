@@ -36,6 +36,8 @@
   padding: var(--padding-box);
   background-color: var(--project-gray);
   transition: .5s ease-in-out;
+
+  z-index: 10;
 }
 
 .Iniciar__Player:hover {
