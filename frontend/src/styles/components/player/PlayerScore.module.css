@@ -1,6 +1,9 @@
 .playerScore{
     width: 100%;
     height: 12vh;
+    
+    display: flex;
+    flex-wrap: wrap;
 }
 .playerName{
     width: 18vw;
@@ -8,7 +11,7 @@
     display: flex;
     align-items: center;
 }
-.playerName p{
+.playerNameP{
     margin-left: 2vw;
 }
 .score{
@@ -18,7 +21,7 @@
     align-items: center;
     justify-content: center;
 }
-.score p{
+.scoreP{
     font-size: 3vw;
 
 }

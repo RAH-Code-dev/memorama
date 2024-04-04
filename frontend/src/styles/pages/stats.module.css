@@ -2,7 +2,7 @@
 
 .stats__main {
     padding: var(--padding-page);
-    height: 100vh;
+    height: 95vh;
     overflow: scroll;
 }
 

@@ -1,5 +1,7 @@
 .Iniciar__main {
   padding: var(--padding-page);
+  height: 95vh;
+  overflow-y: scroll;
 }
 
 .Iniciar__OnlinePlayers {
