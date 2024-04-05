@@ -1,32 +1,40 @@
 .podio {
-    width: 25%;
+    width: 8%;
     transition: 1s;
-    padding: clamp(1rem, 2.5vw, 2rem);
-
+    padding: clamp(1rem, 2.5vw, -2rem);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    
 }
 
 .podio1 {
-    height: 85%;
-    background-color: cadetblue;
+    height: 75%;
+    border-radius: 5px 5px 0px 0px;
+    background: linear-gradient(180deg, #EAC102 0%, #DFCD7B 110.78%);
     animation: grow1 1.25s ease-in-out;
+    margin-left: 40px;
+    margin-right: 40px;
+    
 }
 
 .podio2 {
-    height: 75%;
-    background-color: #7f7eff;
+    height: 55%;
+    border-radius: 5px 5px 0px 0px;
+    background: linear-gradient(180deg, #555555 0%, #BBBBBB 160.16%);
     animation: grow2 1.25s ease-in-out;
 }
 
 .podio3 {
-    height: 65%;
-    background-color: #cd7f32;
+    height: 45%;
+    border-radius: 5px 5px 0px 0px;
+    background: linear-gradient(180deg, #88492D 0%, #543D34 100%);
     animation: grow3 1.25s ease-in-out;
 }
-
+.lugarh3{
+    font-size: 30px;
+}
 @keyframes grow1 {
     0% {
         height: 0;
@@ -34,7 +42,7 @@
     }
     100% {
         opacity: 1;
-        height: 85%;
+        height: 75%;
     }
 }
 
@@ -44,7 +52,7 @@
         opacity: 0;
     }
     100% {
-        height: 75%;
+        height: 55%;
         opacity: 1;
     }
 }
@@ -55,7 +63,7 @@
         opacity: 0;
     }
     100% {
-        height: 65%;
+        height: 45%;
         opacity: 1;
     }
 }

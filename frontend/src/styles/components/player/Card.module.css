@@ -1,0 +1,39 @@
+
+.cardStyle{
+    width: 7.5vw;
+    height: 20vh;
+    margin-top: 1vh;
+    margin-left: 1vh;
+    border: 0;
+    border-radius: 10px;
+    background-color: #dd53f8d2;
+    transition: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .8s;
+    animation-name: cardShine;
+    animation-duration: 3000ms;
+    animation-iteration-count: infinite;
+    animation-direction: alternate; 
+}
+@keyframes cardShine{
+    0%{background-color: #dd53f8d2;}
+    100%{background-color: #dd53f898;}
+}
+.flip:hover{
+    transform: rotateY(180deg);
+    animation-iteration-count: 0;
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+.flip:hover ~ .tit{
+    color: black;
+}
+.tit{
+    font-family: "Londrina Solid", sans-serif;
+    font-size: 4.5vw;
+    font-weight: 500px;
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.719);
+}
