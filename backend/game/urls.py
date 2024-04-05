@@ -1,15 +1,17 @@
 from django.urls import path
 from rest_framework import routers
-from .api import ProfesoresViewSet, updateScore, getAlumnosSubpartida, getAlumnosPartida, crearPartida, unirse
+from . import api
 
 router = routers.DefaultRouter()
-router.register('api/profesores', ProfesoresViewSet, 'Profesores')
+router.register('api/profesores', api.ProfesoresViewSet, 'Profesores')
 
 urlpatterns = [
-    path('api/updateScore/<int:id>/', updateScore),
-    path('api/subpartida/alumnos/<int:subpartidaID>/', getAlumnosSubpartida),
-    path('api/partida/alumnos/<int:partidaID>/', getAlumnosPartida),
-    path('api/crearPartida/', crearPartida),
-    path('api/unirse/', unirse),
+    path('api/updateScore/<int:id>/', api.updateScore),
+    path('api/subpartida/alumnos/<int:subpartidaID>/', api.getAlumnosSubpartida),
+    path('api/subpartida/<int:subpartidaID>/', api.getCartasSubPartida),
+    path('api/partida/alumnos/<int:partidaID>/', api.getAlumnosPartida),
+    path('api/partida/<int:partidaID>/', api.getCartasPartida),
+    path('api/crearPartida/', api.crearPartida),
+    path('api/unirse/', api.unirse),
 ]
 urlpatterns += router.urls
