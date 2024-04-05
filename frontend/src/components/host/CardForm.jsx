@@ -1,5 +1,6 @@
 import styles from "@/styles/components/host/CardForm.module.css";
 import MainButton from "../MainButton";
+import FormInput from "../FormInput";
 
 const CardForm = ({ index, card, onCardChange, onDeleteCard }) => {
     const handleQuestionChange = (e) => {
@@ -13,25 +14,27 @@ const CardForm = ({ index, card, onCardChange, onDeleteCard }) => {
     return (
         <div className={styles.cardContainer}>
             <label className={styles.labelInput}>
-                <input
+                <FormInput
+                    className={styles.input_text}
                     type="text"
+                    name="question"
+                    placeholder="Pregunta"
                     value={card.question}
                     onChange={(e) =>
                         onCardChange(index, "question", e.target.value)
                     }
-                    className={styles.input_text}
-                    placeholder="Pregunta"
                 />
             </label>
             <label className={styles.labelInput}>
-                <input
+                <FormInput
+                    className={styles.input_text}
                     type="text"
+                    name="answer"
+                    placeholder="Respuesta"
                     value={card.answer}
                     onChange={(e) =>
                         onCardChange(index, "answer", e.target.value)
                     }
-                    className={styles.input_text}
-                    placeholder="Respuesta"
                 />
             </label>
 

@@ -5,6 +5,7 @@ import CardForm from "@/components/host/CardForm";
 import styles from "@/styles/components/host/GameForm.module.css";
 import { useRouter } from "next/navigation";
 import MainButton from "@/components/MainButton";
+import FormInput from "../FormInput";
 
 const GameForm = () => {
     const [gameName, setGameName] = useState("");
@@ -45,19 +46,22 @@ const GameForm = () => {
     return (
         <div className={styles.formContainer}>
             <label className={styles.labelInput}>
-                <input
+                <FormInput
                     className={styles.input_text}
                     type="text"
+                    name="gameName"
+                    placeholder="Nombre del juego"
                     value={gameName}
                     onChange={handleGameNameChange}
-                    placeholder="Nombre del juego"
                 />
-                <input
+                <FormInput
                     className={styles.input_text}
                     type="text"
+                    name="gameName"
+                    placeholder="Nombre del juego"
                     onChange={handleGameNameChange}
-                    placeholder="Nombre Usuario"
                 />
+
             </label>
 
             <MainButton
