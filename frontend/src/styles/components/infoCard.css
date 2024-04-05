@@ -1,0 +1,92 @@
+.hidden{
+    display: none;
+}
+.allContainer{
+    width: 35vw;
+    height: 90vh;
+    background-color: #896588;
+    position: absolute;
+    top: 5vh;
+    left: 32vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+.infoCardContainer{
+    width: 33.5vw;
+    height: 87vh;
+    background-image: linear-gradient(black, rgb(95, 0, 95));
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    border: 1px solid rgb(255, 255, 255, 0.8);
+    border-radius: 5px;
+}
+.headerContainer{
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    align-items: center;
+}
+.cardName{
+    font-size: 2vw;
+    margin-left: 2vw;
+}
+.itIsDangerousC{
+    width: 4vh;
+    height: 4vh;
+    border: 4px solid silver;
+    border-radius: 100%;
+    position: absolute;
+    right: 5.5vw;
+    top: 1.5vh;
+}
+.exit{
+    width: 5vh;
+    height: 5vh;
+    border: 1px solid white;
+    background-color: black;
+    border-radius: 100%;
+    position: absolute;
+    right: 2vw;
+    top: 1.5vh;
+    color: white;
+    transition: .3s;
+}
+.exit:hover{
+    background-color: #333333;
+}
+.pictureFrame{
+    width: 30vw;
+    height: 35vh;
+    background-image: linear-gradient(silver, white, silver);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.imageContainer{
+    width: 29.5vw;
+    height: 34vh;
+    background-color: #000000;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imageContainer img{
+    width: auto;
+    height: 100%;
+}
+
+.infoContainer{
+    width: 30vw;
+    height: 40vh;
+    margin-top: 2vh;
+}
+.infoCardContainer p{
+    font-size: 1cap;
+}
