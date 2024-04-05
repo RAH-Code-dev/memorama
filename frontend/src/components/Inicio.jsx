@@ -52,12 +52,12 @@ export default function Inicio() {
                     <MainButton
                         level={3}
                         msg="Crear juego"
-                        onclick={() => redirect("/crearJuego")}
+                        onclick={() => redirect("/crear")}
                     />
                     <MainButton
                         level={2}
                         msg="Importar juego"
-                        onclick={() => redirect("/importarJuego")}
+                        onclick={() => redirect("/importar")}
                     />
                 </section>
             </section>
