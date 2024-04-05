@@ -1,7 +1,7 @@
 'use client'
 import style from '@/styles/components/MainButton.module.css'
 
-export default function MainButton( { onclick, msg, width, level = 1 } ) {
+export default function MainButton( { onclick, msg, width, level = 1, className } ) {
   const buttonStyle = width ? { width: width } : {}
   let levelStyle = style[`MainButton__${level}`]
   /**
@@ -11,7 +11,7 @@ export default function MainButton( { onclick, msg, width, level = 1 } ) {
   return (
     <button
       style={buttonStyle}
-      className={`${style.MainButton} ${levelStyle}`} 
+      className={`${style.MainButton} ${levelStyle} ${className}`} 
       type='button'
       onClick={ onclick 
         ? onclick
