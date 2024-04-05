@@ -24,6 +24,13 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
+
+    /* I dontk know css but i modified it */
+    /* it works to put the input component at front */
+    /**/ position: relative;
+    /**/ z-index: 10;
+    /* ---------------------------------- */
+
   } 
 
   .LoadContainer:hover{
@@ -33,11 +40,23 @@
     text-align: center;
     color: gainsboro;
     font-weight: 600;
-    padding: 10px;
     position: relative;
+
+    /* I dontk know css but i modified it */
+    /**/ width: 100%;
+    /**/ height: 100%;
+    /* ---------------------------------- */
+
   }
   .inputFile img{
     width: 100px;
+
+    /* I dontk know css but i modified it */
+    /**/ position: absolute;
+    /**/ margin-left: calc(-100px - 20%);
+    /**/ margin-top: calc(45% - 50px);
+    /**/ z-index: 1;
+    /* ---------------------------------- */
   }
   
  

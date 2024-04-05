@@ -1,5 +1,5 @@
 import React from "react";
-import LoadGame from "@/components/LoadGame";
+import LoadGame from "@/components/host/LoadGame";
 import style from '@/styles/pages/UploadGame.module.css'; 
 
 const Load = () => {

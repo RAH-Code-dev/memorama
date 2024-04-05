@@ -1,14 +1,17 @@
+'use client'
+
 import style from '@/styles/components/LoadGame.module.css'; 
 import uploading from '@/images/upload.png';
 
-
 const LoadGame = props => {
+  console.log(uploading)
+
   return (
     <div className={style.LoadContainer}> 
 
             <div className={style.inputFile}>
-                <img src={uploading} alt="Drop" />
-            <input type="file" value="" className={style.file}/>
+                <input type="file" className={style.file}/>
+                <img src={uploading.src} alt="Drop file" />
             </div>
       
 
