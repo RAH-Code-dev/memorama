@@ -16,6 +16,7 @@
 }
 .title{
     color: black;
+    box-sizing: border-box;
 }
 .inputSubmit{
     width: 30vh;
