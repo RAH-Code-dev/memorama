@@ -1,13 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import styles from "@/styles/components/Inicio.module.css";
 import DistinctiveTitle from "./DistinctiveTitle";
 import FormInput from "./FormInput";
 import MainButton from "./MainButton";
 import { useRouter } from "next/navigation";
-import { Main } from "next/document";
-
 
 export default function Inicio() {
     const router = useRouter()
@@ -52,12 +49,12 @@ export default function Inicio() {
                     <MainButton
                         level={3}
                         msg="Crear juego"
-                        onclick={() => redirect("/crearJuego")}
+                        onclick={() => redirect("/crear")}
                     />
                     <MainButton
                         level={2}
                         msg="Importar juego"
-                        onclick={() => redirect("/importarJuego")}
+                        onclick={() => redirect("/cargar")}
                     />
                 </section>
             </section>

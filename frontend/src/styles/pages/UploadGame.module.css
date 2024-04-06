@@ -1,42 +1,21 @@
 .container{
-    width: 20vw;
-    height: 20vw;
-    margin: 0 auto;
-    padding: 10px;
+    width: 20rem;
+    height: 15rem;
+    padding: .75rem;
+
+    position: absolute !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-content: flex-start;
+    flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+
     border-radius: 20px;
-    box-shadow: black;
-    margin-top: 10vw;
     background-color: whitesmoke;
     position: relative;
 }
-.title{
-    color: black;
-    box-sizing: border-box;
-}
-.inputSubmit{
-    width: 30vh;
-    height: 5vh;
-    position: absolute;
-    bottom: 5vh;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    align-items: center;
-  }
-
-  .inputSubmit input{
-    width: 30vh;
-    height: 4vh;
-    border-radius: 6px;
-    text-align: center;
-    font-size: 14px;
-    border: 1px gray;
-	cursor: pointer;
-    background-color: #ecfe29bc;
-  }

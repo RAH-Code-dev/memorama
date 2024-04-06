@@ -14,7 +14,7 @@ export default function MainButton( { onclick, msg, width, level = 1 } ) {
       className={`${style.MainButton} ${levelStyle}`} 
       type='button'
       onClick={ onclick 
-        ? onclick
+        ? () => onclick()
         : (e) => ( e.preventDefault() ) }>{msg}</button>
   )
 }

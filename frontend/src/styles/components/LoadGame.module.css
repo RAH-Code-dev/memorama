@@ -1,64 +1,63 @@
 .LoadContainer{
-    width: 30vh;
-    height: 20vh;
-    border: 1px grey;
-    background-color: #E0DFDF;
-    border-radius: 10px;
-    position: relative;
-    box-shadow: #d248e7 0px 0px 15px 0px, #EC75FF 0px 0px 0px 1px;
-    animation-name: ateez;
-    animation-duration: 1000ms;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  width: 70%;
+  height: 45%;
+  border: 1px grey;
+  background-color: #E0DFDF;
+  border-radius: 10px;
+  
+  /*box-shadow: #610a6f 0px 0px 15px 0px, #774280 0px 0px 0px 1px;*/
+  box-shadow: #d248e7 0px 0px 15px 0px, #EC75FF 0px 0px 0px 1px;
+
+  /*animation-name: ateez;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;*/
+
+  transition: .75s ease-in-out;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-@keyframes ateez{
-    0%{
-        box-shadow: #d669e7 0px 0px 15px 0px, #dba9e2a2 0px 0px 0px 1px;
-    }
-    100%{
-        box-shadow: #610a6f 0px 0px 15px 0px, #774280 0px 0px 0px 1px;
-    }
+
+/*@keyframes ateez{
+  0%{
+      box-shadow: #d669e7 0px 0px 15px 0px, #dba9e2a2 0px 0px 0px 1px;
   }
- .file{
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-
-    /* I dontk know css but i modified it */
-    /* it works to put the input component at front */
-    /**/ position: relative;
-    /**/ z-index: 10;
-    /* ---------------------------------- */
-
-  } 
-
-  .LoadContainer:hover{
-    opacity: 0.6;
+  100%{
+      box-shadow: #610a6f 0px 0px 15px 0px, #774280 0px 0px 0px 1px;
   }
-  .inputFile{
-    text-align: center;
-    color: gainsboro;
-    font-weight: 600;
-    position: relative;
+}*/
 
-    /* I dontk know css but i modified it */
-    /**/ width: 100%;
-    /**/ height: 100%;
-    /* ---------------------------------- */
+.file{
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+} 
 
-  }
-  .inputFile img{
-    width: 100px;
+.LoadContainer:hover{
+  /*opacity: 0.6;*/
+  box-shadow: #d669e7 0px 0px 15px 0px, #dba9e2a2 0px 0px 0px 1px;
+  transform: scale(1.05);
+}
 
-    /* I dontk know css but i modified it */
-    /**/ position: absolute;
-    /**/ margin-left: calc(-100px - 20%);
-    /**/ margin-top: calc(45% - 50px);
-    /**/ z-index: 1;
-    /* ---------------------------------- */
-  }
-  
- 
-  
- 
+.inputFile{
+  height: 100%;
+  text-align: center;
+  color: gainsboro;
+  font-weight: 600;
+  position: relative;
+}
+.inputFile img{
+  position: absolute;
+  height: 65%;
+  width: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+
+  object-fit: contain;
+}

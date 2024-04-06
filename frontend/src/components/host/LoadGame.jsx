@@ -1,24 +1,16 @@
 'use client'
 
 import style from '@/styles/components/LoadGame.module.css'; 
-import uploading from '@/images/upload.png';
+import uploading from '/public/images/upload-cloud-svgrepo-com.svg';
+import Image from 'next/image'
 
-const LoadGame = props => {
-  console.log(uploading)
-
+export default function LoadGame() {
   return (
-    <div className={style.LoadContainer}> 
-
-            <div className={style.inputFile}>
-                <input type="file" className={style.file}/>
-                <img src={uploading.src} alt="Drop file" />
-            </div>
-      
-
-      
+    <div className={style.LoadContainer}>
+      <div className={style.inputFile}>
+        <Image src={uploading} alt="Drop" />
+        <input type="file" value="" className={style.file}/>
+      </div>
     </div>
-    
   );
 };
-
-export default LoadGame;
