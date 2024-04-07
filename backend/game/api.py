@@ -246,8 +246,7 @@ def getCartasSubPartida(request, subpartidaID):
     
     if usuariosVieron(subpartidaID):
         for carta in cartas:
-            carta_original = Cartas.objects.filter(cartaID=carta.cartaID).first()
-            carta_par = CartasEnSubPartida.objects.filter(pk=carta_original).first()
+            carta_par = CartasEnSubPartida.objects.filter(pk=carta.cartaID.cartaPar).first()
 
             if carta.estado == "volteada" and carta_par.estado != "volteada":
                 carta.estado = "oculta"
