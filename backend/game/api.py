@@ -206,33 +206,35 @@ def visualizarSubPartida(alumno):
     subpartidaview.save()
 
 def usuariosVieron(subpartida):
-    alumnos = Alumnos.objects.filter(subpartidaID=subpartidaID)
+    alumnos = Alumnos.objects.filter(subpartidaID=subpartida)
 
     i = 0
     for alumno in alumnos:
-        subpartidaview = VisibilidadSubsala.objects.filter(pk = alumno).first()
+        subpartidaview = VisibilidadSubsala.objects.filter(pk = alumno.pk).first()
 
         if subpartidaview.visto:
             i = i + 1
     
-    if usuariosVieron(alumnos) == len(alumnos):
+    if i == len(alumnos):
         return True
     
     return False
 
 def otrasVisualizaciones(subpartida):
-    alumnos = Alumnos.objects.filter(subpartidaID=subpartidaID)
+    alumnos = Alumnos.objects.filter(subpartidaID=subpartida)
 
-    if usuariosVieron:
+    if usuariosVieron(subpartida):
         for alumno in alumnos:
-            subpartidaview = VisibilidadSubsala.objects.filter(pk = alumno).first()
+            subpartidaview = VisibilidadSubsala.objects.filter(pk = alumno.pk).first()
             subpartidaview.visto = False
             subpartidaview.save()
 
 @api_view(['GET'])
 def getCartasSubPartida(request, subpartidaID):
-    visualizarSubPartida(request.query_params.get("alumno"))
-    otrasVisualizaciones(subpartidaID)
+
+    alumno = Alumnos.objects.filter(subpartidaID=int(request.query_params.get("alumno"))).first()
+
+    visualizarSubPartida(alumno)
 
     try:
         cartas = CartasEnSubPartida.objects.filter(subpartidaID=subpartidaID)
@@ -242,11 +244,42 @@ def getCartasSubPartida(request, subpartidaID):
     if not cartas.exists():
         return Response(status=status.HTTP_404_NOT_FOUND)
     
+    if usuariosVieron(subpartidaID):
+        for carta in cartas:
+            carta_original = Cartas.objects.filter(cartaID=carta.cartaID).first()
+            carta_par = CartasEnSubPartida.objects.filter(pk=carta_original).first()
+
+            if carta.estado == "volteada" and carta_par.estado != "volteada":
+                carta.estado = "oculta"
+                carta.save()
+
+    otrasVisualizaciones(subpartidaID)
+
     serializer = CartasEnSubPartidaSerializer(cartas, many=True)
+
     return Response(serializer.data)
 
 @api_view(['POST'])
 def voltearCartas(request, subpartidaID):
-    # voltear cartas
-    # si no es par voltear de nuevo
-    pass
+    alumnoID = request.data.get("alumnoID")
+    carta1ID = request.data.get("carta1ID")
+    carta2ID = request.data.get("carta2ID")
+
+    subpartida = Subpartidas.objects.filter(subpartidaID=subpartidaID).first()
+    if subpartida.turnoAlumnoID_id != alumnoID:
+        return Response({"message": "No tienes el turno en esta subpartida"}, status=status.HTTP_403_FORBIDDEN)
+
+    carta1 = CartasEnSubPartida.objects.filter(subpartidaID=subpartidaID, cartaID=carta1ID).first()
+    carta2 = CartasEnSubPartida.objects.filter(subpartidaID=subpartidaID, cartaID=carta2ID).first()
+
+    if carta1 and carta2:
+        carta1.estado = "volteada"
+        carta1.save()
+        carta2.estado = "volteada"
+        carta2.save()
+
+        cartas = CartasEnSubPartida.objects.filter(subpartidaID=subpartidaID)
+        serializer = CartasEnSubPartidaSerializer(cartas, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({"message": "No se encontraron las cartas especificadas"}, status=status.HTTP_404_NOT_FOUND)

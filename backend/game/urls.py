@@ -13,5 +13,6 @@ urlpatterns = [
     path('api/partida/<int:partidaID>/', api.getCartasPartida),
     path('api/crearPartida/', api.crearPartida),
     path('api/unirse/', api.unirse),
+    path('api/subpartida/<int:subpartidaID>/', api.voltearCartas)
 ]
 urlpatterns += router.urls
