@@ -6,11 +6,12 @@ const TitleFont = Londrina_Solid({
   subsets: ["latin"],
 });
 
-export default function DistinctiveTitle( { children, center = false, size } ) {
+export default function DistinctiveTitle( { children, center = false, size, color } ) {
 
   const align = center ? { textAlign: "center" } : { textAlign: "left" }
   const titleSize = size && { fontSize: size }
-  const TitleStyle = { ...align, ...titleSize }
+  const titleColor = color && { color: color }
+  const TitleStyle = { ...align, ...titleSize, ...titleColor }
 
   return (
     <h2
