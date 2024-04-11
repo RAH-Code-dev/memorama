@@ -39,20 +39,7 @@
 .ctaPodium {
     position: absolute;
     bottom: 2rem;
-    background-color: #d90303;
-    color: #e4eee3;
-    padding: 1rem 2rem;
-    border-radius: 1rem;
-    text-decoration: none;
-
     animation: showup 2s;
-    transition: .5s ease-in-out;
-}
-
-.ctaPodium:hover {
-    font-weight: bold;
-    background-color: #e4eee3;
-    color: #d91103;
 }
 
 @keyframes showup {

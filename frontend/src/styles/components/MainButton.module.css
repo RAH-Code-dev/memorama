@@ -31,6 +31,9 @@
 .MainButton__3 {
     background-color: var(--project-yellow);
 }
+.MainButton__4 {
+    background-color: var(--project-red);
+}
 
 .MainButton:hover {
     /* * Animation (Shimering) */
