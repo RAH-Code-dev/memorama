@@ -86,7 +86,8 @@ def createSubGame(gameID, playersNumber):
 def turnoSubpartida(subGameID, alumnoID):
     subpartida = Subpartidas.objects.filter(subpartidaID=subGameID).first()
     if subpartida and not subpartida.turnoAlumnoID:
-        subpartida.turnoAlumnoID = alumnoID
+        alumno = Alumnos.objects.get(pk=alumnoID)
+        subpartida.turnoAlumnoID = alumno
         subpartida.save()
 
 def createAlumno(name, subGameID, gameID):
