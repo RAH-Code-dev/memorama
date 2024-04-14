@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -83,10 +82,10 @@ def createSubGame(gameID, playersNumber):
         return subGame
     return Response(subGame.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def turnoSubpartida(subGameID, alumnoID):
+def turnoSubpartida(subGameID, alumno):
     subpartida = Subpartidas.objects.filter(subpartidaID=subGameID).first()
     if subpartida and not subpartida.turnoAlumnoID:
-        subpartida.turnoAlumnoID = alumnoID
+        subpartida.turnoAlumnoID = alumno
         subpartida.save()
 
 def createAlumno(name, subGameID, gameID):
@@ -100,7 +99,7 @@ def createAlumno(name, subGameID, gameID):
     if student.is_valid():
         student = student.save()
 
-        turnoSubpartida(subGameID, student.pk)
+        turnoSubpartida(subGameID, student)
         return student.alumnoID
     return Response(student.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -159,7 +158,6 @@ def getAlumnosPartida(request, partidaID):
     return Response(serializer.data)
 
 
-
 @api_view(['PUT'])
 def updateScore(request, id):
     try:
@@ -187,6 +185,7 @@ def getAlumnosSubpartida(request, subpartidaID):
     serializer = AlumnosSerializer(alumnos, many=True)
     return Response(serializer.data)
 
+
 @api_view(['GET'])
 def getCartasPartida(request, partidaID):
     try:
@@ -194,11 +193,14 @@ def getCartasPartida(request, partidaID):
     except Cartas.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    if not cartas.exists():
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    # if not cartas.exists():
+    #     return Response(status=status.HTTP_404_NOT_FOUND)
     
-    serializer = CartasSerializer(alumnos, many=True)
-    return Response(serializer.data)
+    serializer = CartasSerializer(cartas, many=True)
+    if serializer.is_valid():
+        return Response(serializer.data)
+    return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 def visualizarSubPartida(alumno):
     subpartidaview = VisibilidadSubsala.objects.filter(pk = alumno).first()
@@ -217,7 +219,6 @@ def usuariosVieron(subpartida):
     
     if i == len(alumnos):
         return True
-    
     return False
 
 def otrasVisualizaciones(subpartida):
@@ -232,9 +233,9 @@ def otrasVisualizaciones(subpartida):
 @api_view(['GET'])
 def getCartasSubPartida(request, subpartidaID):
 
-    alumno = Alumnos.objects.filter(subpartidaID=int(request.query_params.get("alumno"))).first()
+    alumno = Alumnos.objects.filter(subpartidaID=subpartidaID).first()
 
-    visualizarSubPartida(alumno)
+    visualizarSubPartida(alumno.pk)
 
     try:
         cartas = CartasEnSubPartida.objects.filter(subpartidaID=subpartidaID)
