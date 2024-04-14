@@ -193,13 +193,11 @@ def getCartasPartida(request, partidaID):
     except Cartas.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    # if not cartas.exists():
-    #     return Response(status=status.HTTP_404_NOT_FOUND)
+    if not cartas.exists():
+        return Response(status=status.HTTP_404_NOT_FOUND)
     
     serializer = CartasSerializer(cartas, many=True)
-    if serializer.is_valid():
-        return Response(serializer.data)
-    return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response(serializer.data)
 
 
 def visualizarSubPartida(alumno):
