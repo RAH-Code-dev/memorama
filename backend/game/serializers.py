@@ -57,9 +57,15 @@ class SubPartidaSerializer(serializers.ModelSerializer):
         model = Subpartidas
         fields = (
             'partidaID',
-            'turnoAlumnoID',
             'estado',
             'numeroJugadores',
+        )
+
+class TurnoAlumnoSubpartida(serializers.ModelSerializer):
+    class Meta:
+        model = Subpartidas
+        fields = (
+            'turnoAlumnoID',
         )
 
 
