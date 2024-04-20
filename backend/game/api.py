@@ -1,9 +1,8 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Profesores, Alumnos, Subpartidas, Partidas, Cartas, CartasEnSubPartida, VisibilidadSubsala
-from .serializers import ProfesoresSerializer, AlumnosSerializer, PartidasSerializer, CartasSerializer
+from .serializers import ProfesoresSerializer, AlumnosSerializer, PartidasSerializer, CartasSerializer, TurnoAlumnoSubpartida
 from .serializers import PuntajeSerializer, SubPartidaSerializer, NumeroJugadoresEstadoSerializer, CartasEnSubPartidaSerializer
 from rest_framework import viewsets
 
@@ -83,13 +82,6 @@ def createSubGame(gameID, playersNumber):
         return subGame
     return Response(subGame.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def turnoSubpartida(subGameID, alumnoID):
-    subpartida = Subpartidas.objects.filter(subpartidaID=subGameID).first()
-    if subpartida and not subpartida.turnoAlumnoID:
-        alumno = Alumnos.objects.get(pk=alumnoID)
-        subpartida.turnoAlumnoID = alumno
-        subpartida.save()
-
 def createAlumno(name, subGameID, gameID):
     student = AlumnosSerializer(data={
         'nombre': name,
@@ -99,9 +91,7 @@ def createAlumno(name, subGameID, gameID):
     })
 
     if student.is_valid():
-        student = student.save()
-
-        turnoSubpartida(subGameID, student.pk)
+        student = student.save()   
         return student.alumnoID
     return Response(student.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -112,6 +102,8 @@ def unirse(request):
         studentName = request.data['nombre alumno']
     except KeyError as e:
         return Response({"KeyError" : str(e)})
+    
+    subGameCreated = False
 
     # se crea o obtiene la subpartida y el alumno
     subGame = Subpartidas.objects.filter(partidaID=gameID).last()
@@ -121,12 +113,14 @@ def unirse(request):
 
         if isinstance(subGame, Response):
             return subGame
+        subGameCreated = True
 
     if subGame.numeroJugadores >= 4:
         subGame = createSubGame(gameID, 0)
 
         if isinstance(subGame, Response):
             return subGame
+        subGameCreated = True
 
     studentID = createAlumno(studentName, subGame.subpartidaID, gameID)
     if isinstance(studentID, Response):
@@ -139,6 +133,13 @@ def unirse(request):
     })
     if subGameSerializer.is_valid():
         subGameSerializer.save()
+
+    if subGameCreated:
+        subGameSerializer = TurnoAlumnoSubpartida(subGame, data={
+            "turnoAlumnoID": studentID
+        })
+        if subGameSerializer.is_valid():
+            subGameSerializer.save()
     
     return Response({
         "subpartidaID": subGame.subpartidaID,
@@ -158,7 +159,6 @@ def getAlumnosPartida(request, partidaID):
 
     serializer = AlumnosSerializer(alumnos, many=True)
     return Response(serializer.data)
-
 
 
 @api_view(['PUT'])
@@ -188,6 +188,7 @@ def getAlumnosSubpartida(request, subpartidaID):
     serializer = AlumnosSerializer(alumnos, many=True)
     return Response(serializer.data)
 
+
 @api_view(['GET'])
 def getCartasPartida(request, partidaID):
     try:
@@ -198,8 +199,9 @@ def getCartasPartida(request, partidaID):
     if not cartas.exists():
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    serializer = CartasSerializer(alumnos, many=True)
+    serializer = CartasSerializer(cartas, many=True)
     return Response(serializer.data)
+
 
 def visualizarSubPartida(alumno):
     subpartidaview = VisibilidadSubsala.objects.filter(pk = alumno).first()
@@ -218,7 +220,6 @@ def usuariosVieron(subpartida):
     
     if i == len(alumnos):
         return True
-    
     return False
 
 def otrasVisualizaciones(subpartida):
@@ -233,9 +234,9 @@ def otrasVisualizaciones(subpartida):
 @api_view(['GET'])
 def getCartasSubPartida(request, subpartidaID):
 
-    alumno = Alumnos.objects.filter(subpartidaID=int(request.query_params.get("alumno"))).first()
+    alumno = Alumnos.objects.filter(subpartidaID=subpartidaID).first()
 
-    visualizarSubPartida(alumno)
+    visualizarSubPartida(alumno.pk)
 
     try:
         cartas = CartasEnSubPartida.objects.filter(subpartidaID=subpartidaID)

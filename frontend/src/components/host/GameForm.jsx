@@ -40,7 +40,7 @@ const GameForm = () => {
     const exportGameData = (gameName, cards) => {
         console.log("Exporting Game Data:", gameName, cards);
 
-        router.push("/nuevo");
+        router.push("/iniciar");
     };
 
     return (
@@ -57,9 +57,9 @@ const GameForm = () => {
                 <FormInput
                     className={styles.input_text}
                     type="text"
-                    name="gameName"
-                    placeholder="Nombre del juego"
-                    onChange={handleGameNameChange}
+                    name="teacherName"
+                    placeholder="Nombre del profesor"
+                    // onChange={handleGameNameChange}
                 />
 
             </label>
