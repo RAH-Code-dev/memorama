@@ -69,6 +69,12 @@ def crearPartida(request):
         "partidaID": partida.partidaID,
         })
 
+def moverCartasASubpartida(partida, subpartidaID):
+    cartas = Cartas.objects.filter(partidaID=partida)
+    subpartida = Subpartidas.objects.filter(subpartidaID=subpartidaID).first()
+
+    for carta in cartas:
+        CartasEnSubPartida.objects.create(subpartidaID=subpartida, cartaID=carta, estado="oculta")
 
 def createSubGame(gameID, playersNumber):
     subGame = SubPartidaSerializer(data={
@@ -79,6 +85,7 @@ def createSubGame(gameID, playersNumber):
 
     if subGame.is_valid():
         subGame = subGame.save()
+        moverCartasASubpartida(gameID, subGame.subpartidaID)
         return subGame
     return Response(subGame.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -92,6 +99,7 @@ def createAlumno(name, subGameID, gameID):
 
     if student.is_valid():
         student = student.save()   
+        VisibilidadSubsala.objects.create(alumnoID=student.alumnoID, subpartidaID=student.subpartidaID)
         return student.alumnoID
     return Response(student.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -234,7 +242,7 @@ def otrasVisualizaciones(subpartida):
 @api_view(['GET'])
 def getCartasSubPartida(request, subpartidaID):
 
-    alumno = Alumnos.objects.filter(subpartidaID=subpartidaID).first()
+    alumno = Alumnos.objects.filter(alumnoID=int(request.query_params.get("alumno"))).first()
 
     visualizarSubPartida(alumno.pk)
 
