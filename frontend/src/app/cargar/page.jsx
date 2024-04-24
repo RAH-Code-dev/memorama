@@ -15,7 +15,7 @@ const Load = () => {
 
   const handleOnSubmit = useCallback( () => {
     //TODO: Implementar la carga del juego
-    redirect('/jugar')
+    redirect('/tablero')
   }, []);
 
   return (
