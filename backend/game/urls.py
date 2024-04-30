@@ -6,7 +6,7 @@ router = routers.DefaultRouter()
 router.register('api/profesores', api.ProfesoresViewSet, 'Profesores')
 
 urlpatterns = [
-    path('api/crearPartida/', api.crearPartida),
+    path('api/crear/', api.crearPartida),
     path('api/unirse/', api.unirse),
     path('api/subpartida/alumnos/<int:subpartidaID>/', api.getAlumnosSubpartida),
     path('api/partida/alumnos/<int:partidaID>/', api.getAlumnosPartida),
@@ -14,5 +14,6 @@ urlpatterns = [
     path('api/partida/<int:partidaID>/', api.getCartasPartida),
     path('api/subpartida/<int:subpartidaID>/', api.voltearCartas),
     path('api/updateScore/<int:id>/', api.updateScore),
+    path('api/status/<int:partidaID>/', api.Status.as_view()),
 ]
 urlpatterns += router.urls
