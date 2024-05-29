@@ -13,28 +13,6 @@ class ProfesoresViewSet(viewsets.ModelViewSet):
     serializer_class = ProfesoresSerializer
 
 
-class Status(APIView):
-    def get(self, request, partidaID, format=None):
-        try:
-            partida = Partidas.objects.get(partidaID=partidaID)
-        except partida.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        serializer = PartidasSerializer(partida.estado)
-        return Response(serializer.data)
-
-    def patch(self, request, partidaID):
-        try:
-            partida = Partida.objects.get(partidaID=partidaID)
-        except partida.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        if not partida.exists():
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        return Response({"OK": "OK"})
-
-
 def JsonCardsConverter(cartasJSON, partidaID):
     for cardNum in cartasJSON:
         try:
@@ -191,6 +169,34 @@ def unirse(request):
         "subpartidaID": subGame.subpartidaID,
         "alumnoID": studentID,
     })
+
+
+@api_view(['GET'])
+def getPartida(request, id):
+    try:
+        partida = Partidas.objects.get(partidaID=id)
+    except Partidas.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = PartidasSerializer(partida)
+    return Response(serializer.data)
+
+
+@api_view(['PATCH'])
+def updatePartida(request, id):
+    if request.data == {}:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        partida = Partidas.objects.get(partidaID=id)
+    except Partidas.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = PartidasSerializer(partida, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.validated_data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])

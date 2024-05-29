@@ -11,9 +11,10 @@ urlpatterns = [
     path('api/subpartida/alumnos/<int:subpartidaID>/', api.getAlumnosSubpartida),
     path('api/partida/alumnos/<int:partidaID>/', api.getAlumnosPartida),
     path('api/cartas/subpartida/<int:subpartidaID>/', api.getCartasSubPartida),
-    path('api/partida/<int:partidaID>/', api.getCartasPartida),
+    path('api/partida/cartas/<int:partidaID>/', api.getCartasPartida),
+    path('api/partida/<int:id>/', api.getPartida),
+    path('api/update/partida/<int:id>/', api.updatePartida),
     path('api/subpartida/<int:subpartidaID>/', api.voltearCartas),
     path('api/updateScore/<int:id>/', api.updateScore),
-    path('api/status/<int:partidaID>/', api.Status.as_view()),
 ]
 urlpatterns += router.urls
