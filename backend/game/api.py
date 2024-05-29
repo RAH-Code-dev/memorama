@@ -40,7 +40,12 @@ def JsonCardsConverter(cartasJSON, partidaID):
         try:
             serializerQuestionCard = CartasSerializer(data={
                 "contenido": cartasJSON[cardNum]['question'],
-                "cartaPar": cardNum,
+                "cartaPar": int(cardNum) + 1,
+                "partidaID": partidaID,
+            })
+            serializerAnswerCard = CartasSerializer(data={
+                "contenido": cartasJSON[cardNum]['answer'],
+                "cartaPar": int(cardNum) + 1,
                 "partidaID": partidaID,
             })
             serializerAnswerCard = CartasSerializer(data={
@@ -316,7 +321,7 @@ def voltearCartas(request, subpartidaID):
     carta2ID = request.data.get("carta2ID")
 
     subpartida = Subpartidas.objects.filter(subpartidaID=subpartidaID).first()
-    if subpartida.turnoAlumnoID_id != alumnoID:
+    if subpartida.turnoAlumnoID.pk != alumnoID:
         return Response({"message": "No tienes el turno en esta subpartida"}, status=status.HTTP_403_FORBIDDEN)
 
     carta1 = CartasEnSubPartida.objects.filter(
