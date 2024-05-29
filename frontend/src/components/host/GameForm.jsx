@@ -36,23 +36,33 @@ const GameForm = () => {
     setCards(updatedCards);
   };
 
-  const startGame = (userName, gameName, cards) => {
+  const startGame = async (userName, gameName, cards) => {
     let cardsObject = {}
     for (let i = 0; i < cards.length; i++) {
       cardsObject[i] = cards[i];
     }
 
-    console.log(cardsObject)
-    console.log(cards)
-
-    console.log("Exporting Game Data:", userName, gameName, cardsObject);
-    let res = CreateGame({
+    let res = await CreateGame({
       "nombre profesor": userName,
       "nombre juego": gameName,
       cartas: cardsObject,
     });
 
-    // router.push("/iniciar");
+    if (!res) {
+      alert("Error al crear la partida");
+      return;
+    }
+
+    if ( res ) {
+      console.log(res);//{profesorID: 9, partidaID: 9}
+
+      const query = new URLSearchParams({
+        profesorID: res.profesorID.toString(),
+        partidaID: res.partidaID.toString(),
+      }).toString();
+
+      router.push(`/iniciar?${query}`);
+    }
   };
 
   const exportGameData = () => {

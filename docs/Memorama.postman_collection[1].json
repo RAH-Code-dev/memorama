@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "2083381c-545f-49b5-859b-46b1336c927a",
+		"name": "Memorama",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29780256"
+	},
+	"item": [
+		{
+			"name": "crear partida",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre profesor\" : \"Surisadai\",\r\n  \"nombre juego\" : \"TPSI 8A\",\r\n  \"cartas\" : {\r\n    \"0\" : {\r\n      \"question\" : \"a\",\r\n      \"answer\" : \"a\"\r\n    },\r\n    \"1\" : {\r\n      \"question\" : \"b\",\r\n      \"answer\" : \"b\"\r\n    },\r\n    \"3\" : {\r\n      \"question\" : \"c\",\r\n      \"answer\" : \"c\"\r\n    },\r\n    \"4\" : {\r\n      \"question\" : \"d\",\r\n      \"answer\" : \"d\"\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/crearPartida/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"crearPartida",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "unirse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "partidaID",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "nombre alumno",
+							"value": "milo",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/unirse/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"unirse",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cartas subpartida",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/cartas/subpartida/:subpartida/?alumno=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"cartas",
+						"subpartida",
+						":subpartida",
+						""
+					],
+					"query": [
+						{
+							"key": "alumno",
+							"value": "1"
+						}
+					],
+					"variable": [
+						{
+							"key": "subpartida",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "alumnos subpartida",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/subpartida/alumnos/:subpartida/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"subpartida",
+						"alumnos",
+						":subpartida",
+						""
+					],
+					"variable": [
+						{
+							"key": "subpartida",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cartas partida",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/partida/:partida/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"partida",
+						":partida",
+						""
+					],
+					"variable": [
+						{
+							"key": "partida",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "voltear cartas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"alumnoID\": 1,\r\n    \"carta1ID\": 1,\r\n    \"carta2ID\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/subpartida/:subpartida/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"subpartida",
+						":subpartida",
+						""
+					],
+					"variable": [
+						{
+							"key": "subpartida",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update score",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/updateScore/:alumno/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"updateScore",
+						":alumno",
+						""
+					],
+					"variable": [
+						{
+							"key": "alumno",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

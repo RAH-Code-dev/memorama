@@ -7,7 +7,9 @@ export const CreateGame = async (data) => {
 
   if (!res.ok) {
     console.log(res)
-    throw new Error(res);
+    // In case of error, return undefined
+    // This will be handled in the component
+    return undefined;
   }
 
   return res.json();
