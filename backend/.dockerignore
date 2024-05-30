@@ -1,0 +1,11 @@
+.git/
+.gitignore
+LICENSE
+README.md
+DockerFile
+__pycache__/
+db.sqlite3
+.env
+env/
+installed-requirements.txt
+.gitea/
