@@ -2,6 +2,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { getStudentsGame } from "@/services/GetAlumnosPartida";
+import { getPartida } from "@/services/getPatida";
 
 export default function useGameInfoLogic() {
   const searchParams = useSearchParams();
@@ -24,11 +25,13 @@ export default function useGameInfoLogic() {
     const profesorID = searchParams.get("profesorID");
     const partidaID = searchParams.get("partidaID");
 
-    if (profesorID && partidaID) {
-      setQueryParams({ 
-        profesorID: parseInt( profesorID ), 
-        partidaID: parseInt( partidaID ) 
-      });
+    if ( profesorID && partidaID ) {
+      if ( parseInt( profesorID ) != queryParams.profesorID &&  parseInt( partidaID ) != queryParams.partidaID ) {
+        setQueryParams({ 
+          profesorID: parseInt( profesorID ), 
+          partidaID: parseInt( partidaID ) 
+        });
+      }
     }
   }, [ searchParams ]);
 
@@ -40,21 +43,52 @@ export default function useGameInfoLogic() {
   }, [ queryParams ]);
 
   /*
-   * Get online players
+   * Get the game info
    */
   useEffect(() => {
     const getGameInfo = async () => {
+      const game = await getPartida( queryParams.partidaID );
+
+      if ( game ) {
+        setGameInfo({ 
+          gameName: game.nombre,
+          gameID: queryParams.partidaID,
+          teacherName: game.profesorID// This should be the teacher name
+        });
+      }
+      else {
+        console.log(`
+        Error fetching game   Query params: Partida ${ queryParams.partidaID } Profesor ${ queryParams.profesorID }
+
+        ${ game }
+        `);
+      }
+    }
+
+    if ( queryParams.partidaID ) getGameInfo();
+  }, [ queryParams ]);
+
+  /*
+   * Get online players
+   */
+  useEffect(() => {
+    const getOnlinePlayers = async () => {
       const gameStudents = await getStudentsGame( queryParams.partidaID );
 
       if ( gameStudents ) setPlayers( gameStudents );
-      else console.log('Error fetching students');
+      else console.log(
+        `Error fetching game students   Query params: Partida ${ queryParams.partidaID } Profesor ${ queryParams.profesorID }
+
+        ${ gameStudents }
+        `
+      );
     }
     
     if ( queryParams.partidaID ) {
-      getGameInfo();
+      getOnlinePlayers();
 
       const intervalId = setInterval(() => {
-        getGameInfo();
+        getOnlinePlayers();
       }, 3000); // Fetch every 3 seconds
 
       return () => clearInterval(intervalId); // Clear interval on unmount

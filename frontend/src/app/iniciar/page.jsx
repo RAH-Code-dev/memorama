@@ -24,7 +24,7 @@ export default function page() {
         <p className={styles.Iniciar__TableTitle}>Jugadores en linea</p>
         
         <section className={styles.Iniciar__Players}>
-          { players.map( ( player, key ) => <p key={key} className={styles.Iniciar__Player} >{player.name}</p> ) }
+          { players.map( ( player, key ) => <p key={key} className={styles.Iniciar__Player} >{player.nombre}</p> ) }
         </section>
         {
           gameInfo.playersOnline == 0 &&

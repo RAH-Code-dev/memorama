@@ -22,7 +22,15 @@ export default function Inicio() {
       partidaID: gameCode,
       "nombre alumno": name,
     });
-    console.log(res)
+
+    if ( !res ) {
+      alert("Error al unirse al juego");
+    }
+    
+    if (res) {
+      console.log("res", res);
+      redirect(`/espera/?gameCode=${ gameCode.toString() }`);
+    }
   };
 
   return (

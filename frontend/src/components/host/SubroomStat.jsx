@@ -3,7 +3,7 @@ import SubroomPlayer from '@/components/host/SubroomPlayer'
 
 export default function SubroomStat( { subroomID, score, position, players = [] } ) {
 
-  const MaxSubRoomScore = Math.max(...players.map( player => player.score ), 0)
+  const MaxPlayersScore = Math.max(...players.map( player => player.score ), 0)
 
   return (
     <tr className={styles.SubroomStat}>
@@ -19,9 +19,9 @@ export default function SubroomStat( { subroomID, score, position, players = [] 
         {players.map( (player, key) => (
           <SubroomPlayer 
             key={key}
-            player={player.name}
-            score={player.score}
-            maxScore={MaxSubRoomScore}
+            player={player.nombre}
+            score={player.puntaje}
+            maxScore={MaxPlayersScore}
             position={player.position}
           />
         ))}

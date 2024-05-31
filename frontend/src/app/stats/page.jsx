@@ -8,11 +8,9 @@ import MainButton from "@/components/MainButton"
 import SubroomStat from "@/components/host/SubroomStat"
 import HostHeader from "@/components/host/HostHeader"
 
-import { DummySubroom } from "@/libs/Dummy";
-
 const Page = () => {
-  const { queryParams, gameInfo, players } = useGameInfoLogic();
-  const { Nothing_You_Could_Do } = useSubRoomLogic();
+  const { gameInfo, players } = useGameInfoLogic();
+  const { subrooms } = useSubRoomLogic( players );
   /*
    * I'm working with dummy data for now
    * This will be replaced with the real-time connection to the server
@@ -24,7 +22,6 @@ const Page = () => {
    *    - Number of players
    *    - Teacher name
    */
-  const Subrooms = [DummySubroom, DummySubroom]
   
   return (
     <main className={style.stats__main}>
@@ -42,8 +39,8 @@ const Page = () => {
         </thead>
 
         <tbody className={style.stats__subrooms}>
-          {Subrooms.map(subroom => (
-            <SubroomStat key={subroom.subroomID} {...subroom} />
+          { Object.keys( subrooms ).map(subroom => (
+            <SubroomStat key={ subroom } {...subrooms[ subroom ]} />
           ))}
         </tbody>
 
