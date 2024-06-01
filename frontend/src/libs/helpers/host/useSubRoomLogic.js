@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react"
 
 export default function useSubRoomLogic( inputPlayers ) {
-  // as the players come along with the subrooms
-  // we'll receive the players here and 
-  // sort them into the subrooms
   const [ players, setPlayers ] = useState( inputPlayers );
   const [ subrooms, setSubrooms ] = useState({});
 
   useEffect(() => {
     if ( inputPlayers.length != players.length ) {
-      // update the subrooms
       const sortedPlayers = sortPlayers( inputPlayers, subrooms );
       
       // if there are new players, update the subrooms

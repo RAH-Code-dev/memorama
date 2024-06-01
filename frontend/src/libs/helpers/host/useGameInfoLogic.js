@@ -25,14 +25,15 @@ export default function useGameInfoLogic() {
     const profesorID = searchParams.get("profesorID");
     const partidaID = searchParams.get("partidaID");
 
-    if ( profesorID && partidaID ) {
-      if ( parseInt( profesorID ) != queryParams.profesorID &&  parseInt( partidaID ) != queryParams.partidaID ) {
-        setQueryParams({ 
-          profesorID: parseInt( profesorID ), 
-          partidaID: parseInt( partidaID ) 
-        });
-      }
+    if ( !profesorID || !partidaID ) return;
+
+    if ( parseInt( profesorID ) != queryParams.profesorID || parseInt( partidaID ) != queryParams.partidaID ) {
+      setQueryParams({ 
+        profesorID: parseInt( profesorID ), 
+        partidaID: parseInt( partidaID ) 
+      });
     }
+    
   }, [ searchParams ]);
 
   /*
@@ -57,11 +58,7 @@ export default function useGameInfoLogic() {
         });
       }
       else {
-        console.log(`
-        Error fetching game   Query params: Partida ${ queryParams.partidaID } Profesor ${ queryParams.profesorID }
-
-        ${ game }
-        `);
+        ERROR_MESSAGE_HANDLER( 'getting game info', game );
       }
     }
 
@@ -76,12 +73,7 @@ export default function useGameInfoLogic() {
       const gameStudents = await getStudentsGame( queryParams.partidaID );
 
       if ( gameStudents ) setPlayers( gameStudents );
-      else console.log(
-        `Error fetching game students   Query params: Partida ${ queryParams.partidaID } Profesor ${ queryParams.profesorID }
-
-        ${ gameStudents }
-        `
-      );
+      else ERROR_MESSAGE_HANDLER( 'No se encontraron alumnos', gameStudents );
     }
     
     if ( queryParams.partidaID ) {
@@ -109,4 +101,15 @@ export default function useGameInfoLogic() {
     players,
     startGame
   }
+}
+
+const ERROR_MESSAGE = ( action, err ) => `
+Error while ${ action }:
+Query params: Partida ${ queryParams.partidaID } Profesor ${ queryParams.profesorID }
+
+${ err }
+`;
+
+const ERROR_MESSAGE_HANDLER = ( err ) => {
+  console.log( ERROR_MESSAGE( err ) );
 }

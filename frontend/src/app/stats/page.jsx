@@ -11,17 +11,6 @@ import HostHeader from "@/components/host/HostHeader"
 const Page = () => {
   const { gameInfo, players } = useGameInfoLogic();
   const { subrooms } = useSubRoomLogic( players );
-  /*
-   * I'm working with dummy data for now
-   * This will be replaced with the real-time connection to the server
-   * 
-   * We have to get the Subrooms from the server and then map them to the SubroomStat component
-   * The game info probably from cookies
-   *    - Name of the game
-   *    - Game ID
-   *    - Number of players
-   *    - Teacher name
-   */
   
   return (
     <main className={style.stats__main}>
