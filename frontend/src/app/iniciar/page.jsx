@@ -1,22 +1,27 @@
 'use client';
-import useGameInfoLogic from "@/libs/helpers/host/useGameInfoLogic";
+import useGameInfo from "@/libs/helpers/host/useGameInfo";
 
 import styles from '@/styles/pages/Iniciar.module.css';
 import HostHeader from "@/components/host/HostHeader";
 import MainButton from "@/components/MainButton";
 
 export default function page() {
-  const { gameInfo, players, startGame } = useGameInfoLogic();
+  const { gameInfo, players, statusOptions, cancelGame } = useGameInfo();
   
   return (
     <main className={styles.Iniciar__main} >
       
       <HostHeader gameInfo={ gameInfo } >
         <MainButton 
-          msg={'Iniciar juego'}
-          onclick={ startGame }
+          msg={ statusOptions.cta }
+          onclick={ statusOptions.action }
         />
-        <MainButton level={2} msg={'Cancelar'} />
+
+        <MainButton
+          msg="Cancelar juego"
+          level={2}
+          onclick={ () => cancelGame( gameInfo.gameID ) }
+        />
       </HostHeader>
 
       <section className={styles.Iniciar__OnlinePlayers}>

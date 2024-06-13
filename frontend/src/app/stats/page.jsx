@@ -1,6 +1,6 @@
 "use client"
 
-import useGameInfoLogic from "@/libs/helpers/host/useGameInfoLogic"
+import useGameInfo from "@/libs/helpers/host/useGameInfo"
 import useSubRoomLogic from "@/libs/helpers/host/useSubRoomLogic"
 
 import style from "@/styles/pages/stats.module.css"
@@ -9,14 +9,14 @@ import SubroomStat from "@/components/host/SubroomStat"
 import HostHeader from "@/components/host/HostHeader"
 
 const Page = () => {
-  const { gameInfo, players } = useGameInfoLogic();
+  const { gameInfo, players, statusOptions } = useGameInfo();
   const { subrooms } = useSubRoomLogic( players );
   
   return (
     <main className={style.stats__main}>
 
       <HostHeader gameInfo={ gameInfo } >
-        <MainButton msg='Jugar de nuevo' />
+        <MainButton msg={ statusOptions.cta } onclick={ statusOptions.action } />
       </HostHeader>
 
       <table className={style.stats__subroomsSection}>
