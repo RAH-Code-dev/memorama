@@ -1,4 +1,4 @@
-export const getStudentsGame = async (subpartidaID) => {
+export const getStudentsSubGame = async (subpartidaID) => {
   const res = await fetch(
     `http://127.0.0.1:8000/api/subpartida/alumnos/${subpartidaID}/`,
     {
