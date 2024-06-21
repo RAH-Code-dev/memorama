@@ -178,8 +178,15 @@ def getPartida(request, id):
     except Partidas.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+    try:
+        profesor = Profesores.objects.get(profesorID=partida.profesorID.pk)
+    except Profesores.DoesNotExist:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
     serializer = PartidasSerializer(partida)
-    return Response(serializer.data)
+    serializerProfesor = ProfesoresSerializer(profesor)
+
+    return Response({"partida": serializer.data, "profesor": serializerProfesor.data})
 
 
 @api_view(['PATCH'])
